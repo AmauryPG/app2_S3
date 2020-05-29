@@ -10,7 +10,7 @@
          <left>
             <Accordion BorderPane.alignment="CENTER">
               <panes>
-                <TitledPane animated="false" text="Energy-based models">
+                <TitledPane id="tiltedPaneEnergy" animated="false" text="Energy-based models">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
@@ -34,7 +34,7 @@
             </Accordion>
          </left>
          <center>
-            <ScrollPane prefHeight="325.0" prefWidth="398.0" BorderPane.alignment="CENTER">
+            <ScrollPane id="tableauTravail" prefHeight="325.0" prefWidth="398.0" BorderPane.alignment="CENTER">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
               </content>
@@ -87,4 +87,7 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <Label id="labelMode" text="Mode de l,utilisateur" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
