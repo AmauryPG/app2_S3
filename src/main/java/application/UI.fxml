@@ -64,7 +64,7 @@
          <center>
             <ScrollPane onDragDropped="#paneDrageDropped" onDragEntered="#paneDragEntered" onDragOver="#paneDrageOver" prefHeight="302.0" prefWidth="347.0" BorderPane.alignment="CENTER">
                <content>
-                  <Pane fx:id="tableauTravail" onMouseDragged="#drawingMouseDragged" onMousePressed="#drawingMousePressed" onMouseReleased="#drawingMouseReleased"  prefHeight="200.0" prefWidth="200.0" />
+                  <Pane fx:id="tableauTravail" onMouseDragged="#drawingMouseDragged" onMousePressed="#drawingMousePressed" onMouseReleased="#drawingMouseReleased" prefHeight="200.0" prefWidth="200.0" />
                </content></ScrollPane>
          </center>
       </BorderPane>
@@ -94,28 +94,29 @@
             <ToolBar fx:id="toolBarEditor" prefHeight="40.0" prefWidth="200.0">
               <items>
                   <Label text="Option: " />
-                <Button fx:id="boutonAjouter" mnemonicParsing="false" text="+" />
-                  <Button id="bouonAgrandir" mnemonicParsing="false">
-                     <graphic>
-                        <ImageView>
-                           <image>
-                              <Image url="@../../resources/agrandir.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
+                <Button fx:id="boutonAjouter" mnemonicParsing="false" onAction="#boutonHandler" text="+" />
+                  <Button id="bouonAgrandir" fx:id="boutonAgrandir" mnemonicParsing="false" onAction="#boutonHandler" text="Agrandir" />
+                  <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="6.0" />
+                  <MenuButton mnemonicParsing="false" text="MenuButton">
+                    <items>
+                      <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#boutonHandler" text="Action 1" />
+                      <MenuItem fx:id="menuItem2" mnemonicParsing="false" onAction="#boutonHandler" text="Action 2" />
+                    </items>
+                  </MenuButton>
                   <Label text="Modes" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <ComboBox prefWidth="150.0" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="bouton1" mnemonicParsing="false" onAction="#boutonHandler" text="Button1" />
+                  <Button fx:id="bouton2" mnemonicParsing="false" onAction="#boutonHandler" text="Button2" />
+                  <Button fx:id="bouton3" mnemonicParsing="false" onAction="#boutonHandler" text="Button3" />
+                  <Button fx:id="bouton4" mnemonicParsing="false" onAction="#boutonHandler" text="Button4" />
+                  <Button fx:id="bouton5" mnemonicParsing="false" onAction="#boutonHandler" text="Button5" />
+                  <Button fx:id="bouton6" mnemonicParsing="false" onAction="#boutonHandler" text="Button6" />
+                  <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="0.0" />
                   <Label text="Alignement:" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="bouton7" mnemonicParsing="false" onAction="#boutonHandler" text="Button7" />
+                  <Button fx:id="bouton8" mnemonicParsing="false" onAction="#boutonHandler" text="Button8" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
                   <Label text="Inversion" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="bouton9" mnemonicParsing="false" onAction="#boutonHandler" text="Button9" />
               </items>
             </ToolBar>
          </children>

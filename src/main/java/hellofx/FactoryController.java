@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
@@ -21,9 +22,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.StrokeType;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ import com.sun.prism.paint.Color;
 import formes.Rectangle;
 import formes.Elipse;
 import formes.Formes;
+import javafx.scene.shape.*;
 
 public class FactoryController {
 	
@@ -160,6 +159,7 @@ public class FactoryController {
         
         tempCercle.setCenterX(event.getX());
         tempCercle.setCenterY(event.getY());
+                
          
         /* accept it only if it is  not dragged from the same node 
          * and if it has a string data */ 
@@ -204,7 +204,7 @@ public class FactoryController {
     void boutonFlecheSimpleClicked(ActionEvent event) {
     	flecheStyle = "simple";
     }
-
+      
     @FXML
     void drawingMouseDragged(MouseEvent event) {
     	if (!event.isPrimaryButtonDown()) {
@@ -262,4 +262,49 @@ public class FactoryController {
     	System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
     	curLine = null;
     }
+    
+    //bouton 
+
+
+    @FXML
+    private Button bouton1;
+    
+    @FXML
+    private Button bouton2;
+    
+    @FXML
+    private Button bouton3;
+    
+    @FXML
+    private Button bouton4;
+    
+    @FXML
+    private Button bouton5;
+    
+    @FXML
+    private Button bouton6;
+    
+    @FXML
+    private Button bouton7;
+    
+    @FXML
+    private Button bouton8;
+    
+    @FXML
+    private Button bouton9;
+
+    @FXML
+    private MenuItem menuItem1;
+
+    @FXML
+    private MenuItem menuItem2;
+    
+    @FXML
+    private Button boutonAgrandir;    
+
+    @FXML
+    void boutonHandler(ActionEvent event) {
+    	System.out.println(event.getSource().toString());
+    }
+    
 }
