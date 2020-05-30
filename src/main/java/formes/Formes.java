@@ -1,6 +1,8 @@
 package formes;
 
-public class Formes {
+import javafx.scene.shape.*;
+
+public class Formes extends Shape {
 
 	protected float x;
 	protected float y;
