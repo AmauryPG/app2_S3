@@ -64,7 +64,7 @@
          <center>
             <ScrollPane onDragDropped="#paneDrageDropped" onDragEntered="#paneDragEntered" onDragOver="#paneDrageOver" prefHeight="302.0" prefWidth="347.0" BorderPane.alignment="CENTER">
                <content>
-                  <Pane fx:id="tableauTravail" prefHeight="200.0" prefWidth="200.0" />
+                  <Pane fx:id="tableauTravail" onMouseDragged="#drawingMouseDragged" onMousePressed="#drawingMousePressed" onMouseReleased="#drawingMouseReleased"  prefHeight="200.0" prefWidth="200.0" />
                </content></ScrollPane>
          </center>
       </BorderPane>

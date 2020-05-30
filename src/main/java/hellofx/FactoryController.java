@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeType;
 
 import java.net.URL;
@@ -179,5 +180,86 @@ public class FactoryController {
         }
         
         event.consume();
+    }
+    
+/*************** Ligne/Fleche ***************/
+    
+    private Line curLine;
+    private String flecheStyle;
+    
+    @FXML
+    private Button flecheDouble;
+    
+    @FXML
+    void boutonFlecheDoubleClicked(ActionEvent event) {
+    	flecheStyle = "double";
+    	
+    }
+    
+
+    @FXML
+    private Button flecheSimple;
+    
+    @FXML
+    void boutonFlecheSimpleClicked(ActionEvent event) {
+    	flecheStyle = "simple";
+    }
+
+    @FXML
+    void drawingMouseDragged(MouseEvent event) {
+    	if (!event.isPrimaryButtonDown()) {
+            return;
+        }
+
+        if (curLine == null) {
+            return;
+        }
+
+        curLine.setEndX(event.getX());
+        curLine.setEndY(event.getY());
+        
+        //Sert pour faire augmenter la taille de la fen�tre si la line est trop grande
+        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
+        double my = Math.max(curLine.getStartY(), curLine.getEndY());
+
+        if (mx > tableauTravail.getMinWidth()) {
+        	tableauTravail.setMinWidth(mx);
+        }
+
+        if (my > tableauTravail.getMinHeight()) {
+        	tableauTravail.setMinHeight(my);
+        }
+        //System.out.println(curLine.getEndX() + " " + curLine.getEndY());
+    }
+    
+    @FXML
+    void drawingMousePressed(MouseEvent event) {
+    	
+    	if (!event.isPrimaryButtonDown()) {
+            return;
+        }
+        curLine = new Line(
+            event.getX(), event.getY(), 
+            event.getX(), event.getY()
+        );
+        
+        if(flecheStyle == "double") {
+        	curLine.setStyle("-fx-stroke: black;");
+        	}
+        
+        else if(flecheStyle == "simple") {
+        	curLine.setStyle("-fx-stroke: red;");
+        	}
+        
+        tableauTravail.getChildren().add(curLine);
+        /*System.out.println("Mouse Pressed");
+        System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
+    }
+
+    @FXML
+    void drawingMouseReleased(MouseEvent event) {
+    	/*System.out.println("Mouse Released");
+    	System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
+    	curLine = null;
     }
 }
