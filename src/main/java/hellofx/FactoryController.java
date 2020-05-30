@@ -1,37 +1,36 @@
 package hellofx;
-   
+  
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToolBar;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+<<<<<<< pro0
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+=======
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+>>>>>>> code fleche
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+<<<<<<< pro0
 import com.sun.prism.paint.Color;
 
 import formes.Rectangle;
 import formes.Elipse;
 import formes.Formes;
 import javafx.scene.shape.*;
+=======
+>>>>>>> code fleche
 
 public class FactoryController {
 	
@@ -43,9 +42,6 @@ public class FactoryController {
     private URL location;
     //--pas touche--
     
-    //liste de forme
-    ArrayList<Formes> listeFormes = new ArrayList<Formes>();
-    Formes selectedForme;
 
     //variable pour le MenuBar
     @FXML
@@ -56,8 +52,10 @@ public class FactoryController {
     private Menu menuMore;
     
     //label du bas de page
+    /*@FXML
+    private Label labelMode;*/
     @FXML
-    private Label labelMode;
+    private Label textLabel;
     
     //Menu des tiltedPane sur la gauche de la fenetre
     @FXML
@@ -69,41 +67,42 @@ public class FactoryController {
     @FXML
     private TitledPane titledPaneEstimator;
     
-    //zone de travail principal
-    @FXML
-    private Pane tableauTravail;
-     
-
-    @FXML
-    private Circle formeCercle;
-
-    @FXML
-    private Button boutonAjouter;
     
     @FXML
-    private ToolBar toolBarEditor;
-  
+    private Pane drawingPane;
+    
+    //change de travail principal
+    @FXML
+    private ScrollPane tableauTravail;
+    
+   
     
     @FXML
     void initialize() {
-        assert toolBarEditor != null : "fx:id=\"toolBarEditor\" was not injected: check your FXML file 'UI.fxml'.";
-        assert formeCercle != null : "fx:id=\"formeCercle\" was not injected: check your FXML file 'UI.fxml'.";
-        assert labelMode != null : "fx:id=\"labelMode\" was not injected: check your FXML file 'UI.fxml'.";
-        assert boutonAjouter != null : "fx:id=\"boutonAjouter\" was not injected: check your FXML file 'UI.fxml'.";
-        assert titledPaneInversion != null : "fx:id=\"titledPaneInversion\" was not injected: check your FXML file 'UI.fxml'.";
-        assert titledPaneStrategy != null : "fx:id=\"titledPaneStrategy\" was not injected: check your FXML file 'UI.fxml'.";
-        assert menuEdit != null : "fx:id=\"menuEdit\" was not injected: check your FXML file 'UI.fxml'.";
-        assert menuFile != null : "fx:id=\"menuFile\" was not injected: check your FXML file 'UI.fxml'.";
-        assert titledPaneEstimator != null : "fx:id=\"titledPaneEstimator\" was not injected: check your FXML file 'UI.fxml'.";
-        assert tableauTravail != null : "fx:id=\"tableauTravail\" was not injected: check your FXML file 'UI.fxml'.";
-        assert tiltedPaneEnergy != null : "fx:id=\"tiltedPaneEnergy\" was not injected: check your FXML file 'UI.fxml'.";
-        assert menuMore != null : "fx:id=\"menuMore\" was not injected: check your FXML file 'UI.fxml'.";
+    	
+    }
+    
+    @FXML
+    private Button boutonAjouter;
 
-    } 
+    @FXML
+    void boutonAjouterClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : Bouton Ajouter");
+    	
+    }
+    
+    @FXML
+    private Button boutonAgrandir;
+    
+    @FXML
+    void boutonAgrandirClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : Bouton Agrandir");
+    }
     
     private Circle tempCercle;
     
     @FXML
+<<<<<<< pro0
     void formeDragDetected(MouseEvent event) {
     	  /* drag was detected, start drag-and-drop gesture*/
         System.out.println("onDragDetected");
@@ -140,18 +139,67 @@ public class FactoryController {
             nouveauCercle.setStroke(Paint.valueOf("BLACK"));
             nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
             System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
-
-            tableauTravail.getChildren().add(nouveauCercle);
-        }
-        /* let the source know whether the string was successfully 
-         * transferred and used */
-        event.setDropCompleted(success);
-        
-        event.consume();
-    	
+=======
+    private Button boutonDessin;
+    
+    @FXML
+    void boutonDessinClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : Dessin");
+    
+    }
+    
+    @FXML
+    private Button boutonConnection;
+    
+    @FXML
+    void boutonConnectionClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : Connection");
+    }
+    
+    @FXML
+    private MenuItem menuItemAbout;
+    
+    @FXML
+    void menuItemAboutClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : menu More.../About");
     }
 
     @FXML
+    private MenuItem menuItemClose;
+    
+    @FXML
+    void menuItemCloseClicked(ActionEvent event) {
+    	//Permet de quitter l'application
+    	Platform.exit();
+    }
+>>>>>>> code fleche
+
+    @FXML
+    private MenuItem menuItemDelete;
+    
+    
+    @FXML
+    void menuItemDeleteClicked(ActionEvent event) {
+    	textLabel.setText("Mode de l'utilisateur : menu Edit/Delete");
+    }
+    
+/*************** Ligne/Fleche ***************/
+    
+    private Line curLine;
+    private String flecheStyle;
+    
+    @FXML
+    private Button flecheDouble;
+    
+    @FXML
+    void boutonFlecheDoubleClicked(ActionEvent event) {
+    	flecheStyle = "double";
+    	
+    }
+    
+
+    @FXML
+<<<<<<< pro0
     void paneDrageOver(DragEvent  event) {
         /* data is dragged over the target */
         System.out.println("onDragOver");
@@ -165,21 +213,66 @@ public class FactoryController {
             /* allow for both copying and moving, whatever user chooses */
         event.acceptTransferModes(TransferMode.COPY_OR_MOVE); 
         event.consume();
+=======
+    private Button flecheSimple;
+    
+    @FXML
+    void boutonFlecheSimpleClicked(ActionEvent event) {
+    	flecheStyle = "simple";
+>>>>>>> code fleche
     }
-
 
     @FXML
-    void paneDragEntered(DragEvent event) {
-    	 /* the drag-and-drop gesture entered the target */
-        System.out.println("onDragEntered");
-        /* show to the user that it is an actual gesture target */
-        if (event.getGestureSource() != tableauTravail &&
-                event.getDragboard().hasString()) {
-        	System.out.println("dropp succes");
+    void drawingMouseDragged(MouseEvent event) {
+    	if (!event.isPrimaryButtonDown()) {
+            return;
         }
+
+        if (curLine == null) {
+            return;
+        }
+
+        curLine.setEndX(event.getX());
+        curLine.setEndY(event.getY());
         
-        event.consume();
+        //Sert pour faire augmenter la taille de la fenêtre si la line est trop grande
+        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
+        double my = Math.max(curLine.getStartY(), curLine.getEndY());
+
+        if (mx > drawingPane.getMinWidth()) {
+            drawingPane.setMinWidth(mx);
+        }
+
+        if (my > drawingPane.getMinHeight()) {
+            drawingPane.setMinHeight(my);
+        }
+        //System.out.println(curLine.getEndX() + " " + curLine.getEndY());
     }
+    
+    @FXML
+    void drawingMousePressed(MouseEvent event) {
+    	
+    	if (!event.isPrimaryButtonDown()) {
+            return;
+        }
+        curLine = new Line(
+            event.getX(), event.getY(), 
+            event.getX(), event.getY()
+        );
+        
+        if(flecheStyle == "double") {
+        	curLine.setStyle("-fx-stroke: black;");
+        	}
+        
+        else if(flecheStyle == "simple") {
+        	curLine.setStyle("-fx-stroke: red;");
+        	}
+        
+        drawingPane.getChildren().add(curLine);
+        /*System.out.println("Mouse Pressed");
+        System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
+    }
+<<<<<<< pro0
     
 /*************** Ligne/Fleche ***************/
     
@@ -260,6 +353,8 @@ public class FactoryController {
         /*System.out.println("Mouse Pressed");
         System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
     }
+=======
+>>>>>>> code fleche
 
     @FXML
     void drawingMouseReleased(MouseEvent event) {
