@@ -20,7 +20,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeType;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -100,6 +102,8 @@ public class FactoryController {
 
     } 
     
+    private Circle tempCercle;
+    
     @FXML
     void formeDragDetected(MouseEvent event) {
     	  /* drag was detected, start drag-and-drop gesture*/
@@ -112,6 +116,9 @@ public class FactoryController {
         ClipboardContent cb = new ClipboardContent();
         cb.putString("mamaCOCO");
         db.setContent(cb);
+        
+        tempCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
+        tableauTravail.getChildren().add(tempCercle);
         
         event.consume();
     }
@@ -126,8 +133,13 @@ public class FactoryController {
         if (db.hasString()) { 
         	System.out.println("true");
             success = true;
+
+            tempCercle = null;
             
             Circle nouveauCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
+            nouveauCercle.setFill(Paint.valueOf("BLUE"));
+            nouveauCercle.setStroke(Paint.valueOf("BLACK"));
+            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
             System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
 
             tableauTravail.getChildren().add(nouveauCercle);
@@ -145,6 +157,9 @@ public class FactoryController {
         /* data is dragged over the target */
         System.out.println("onDragOver");
         
+        tempCercle.setCenterX(event.getX());
+        tempCercle.setCenterY(event.getY());
+         
         /* accept it only if it is  not dragged from the same node 
          * and if it has a string data */ 
             /* allow for both copying and moving, whatever user chooses */
