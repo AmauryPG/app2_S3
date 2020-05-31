@@ -102,7 +102,12 @@ public class FactoryController {
 
     } 
     
-    private Circle tempCercle;
+    private Circle tempCercle; 
+    private Circle tempCercleFleche;
+    private ArrayList<Circle> listCercle = new ArrayList<Circle>();
+    private int nbrAnchor = 0;
+    private double [] anchorX = {0,0,0};
+    private double [] anchorY = {0,0,0};
     
     @FXML
     void formeDragDetected(MouseEvent event) {
@@ -139,10 +144,64 @@ public class FactoryController {
             Circle nouveauCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
             nouveauCercle.setFill(Paint.valueOf("BLUE"));
             nouveauCercle.setStroke(Paint.valueOf("BLACK"));
-            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
-            System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
+            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE")); 
+            System.out.println(event.getX() + " : " + event.getY());    
+            
+            listCercle.add(nouveauCercle); 
+                        
+            nouveauCercle.setOnMouseClicked (new EventHandler<javafx.scene.input.MouseEvent>() { 
+                @Override 
+                public void handle(javafx.scene.input.MouseEvent e) {    
+                   anchorX[nbrAnchor] = event.getX();  
+                   anchorY[nbrAnchor] = event.getY();  
+                   
+                   System.out.println(nbrAnchor); 
+                   
+                   if(nbrAnchor < 1)
+                   {
+                	   nbrAnchor++;
+                  		tempCercleFleche = new Circle(nouveauCercle.getCenterX(), nouveauCercle.getCenterY(), nouveauCercle.getRadius());   
+                   }
+                   else
+                   {
+                	   nbrAnchor = 0; 
+                	   
+                	   double deltaX, deltaY, distance;
+                	   
+                	   //on fait les math pour le mettre sur le rebord
+                	   deltaX = anchorX[0] - anchorX[1];
+                	   deltaY = anchorY[0] - anchorY[1];
+                	   distance = Math.sqrt(Math.pow(deltaY, 2) + Math.pow(deltaX, 2));
 
-            tableauTravail.getChildren().add(nouveauCercle);
+                	   anchorX[1] = anchorX[1] + (tempCercleFleche.getRadius() * deltaX / distance);
+                	   anchorY[1] = anchorY[1] + (tempCercleFleche.getRadius() * deltaY / distance);
+
+                	   anchorX[0] = anchorX[0] - (tempCercleFleche.getRadius() * deltaX / distance);
+                	   anchorY[0] = anchorY[0] - (tempCercleFleche.getRadius() * deltaY / distance);
+                	   
+                	   System.out.println(anchorX[0] + " " + anchorY[0]);
+                	   System.out.println(anchorX[1] + " " + anchorY[1]);
+                	   
+                	   //on cree la nouvelle ligne
+                       curLine = new Line(
+                               anchorX[0], anchorY[0], 
+                               anchorX[1], anchorY[1]
+                           );
+                           
+                           if(flecheStyle == "double") { 
+                           	curLine.setStyle("-fx-stroke: black;");
+                           	}
+                           
+                           else if(flecheStyle == "simple") {
+                           	curLine.setStyle("-fx-stroke: red;");
+                           	}
+                           
+                           tableauTravail.getChildren().add(curLine);
+                   }                   
+                } 
+             });  
+ 
+            tableauTravail.getChildren().add(nouveauCercle); 
         }
         /* let the source know whether the string was successfully 
          * transferred and used */
