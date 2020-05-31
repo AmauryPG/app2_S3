@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.FactoryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.FactoryController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -104,10 +119,10 @@
                     </items>
                   </MenuButton>
                   <Label text="Modes" />
-                  <Button fx:id="bouton1" mnemonicParsing="false" onAction="#boutonHandler" text="Button1" />
-                  <Button fx:id="bouton2" mnemonicParsing="false" onAction="#boutonHandler" text="Button2" />
-                  <Button fx:id="bouton3" mnemonicParsing="false" onAction="#boutonHandler" text="Button3" />
-                  <Button fx:id="bouton4" mnemonicParsing="false" onAction="#boutonHandler" text="Button4" />
+                  <Button fx:id="flecheDouble" mnemonicParsing="false" onAction="#boutonFlecheDoubleClicked" text="flecheDouble" />
+                  <Button fx:id="bouton2" mnemonicParsing="false" onAction="#boutonFlecheSimpleClicked" text="flecheSimple" />
+                  <Button fx:id="boutonDessin" mnemonicParsing="false" onAction="#boutonDessinClicked" text="Dessin" />
+                  <Button fx:id="boutonConnect" mnemonicParsing="false" onAction="#boutonConnectClicked" text="Connection" />
                   <Button fx:id="bouton5" mnemonicParsing="false" onAction="#boutonHandler" text="Button5" />
                   <Button fx:id="bouton6" mnemonicParsing="false" onAction="#boutonHandler" text="Button6" />
                   <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="0.0" />

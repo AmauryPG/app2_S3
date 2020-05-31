@@ -21,18 +21,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.sun.prism.paint.Color;
 
-import formes.Rectangle;
-import formes.Elipse;
-import formes.Formes;
+
 import javafx.scene.shape.*;
+import models.Arrow;
+import state.State;
+import state.StateConnection;
+import state.StateDessin;
+import state.StateStart;
+
 
 public class FactoryController {
 	
@@ -44,9 +48,7 @@ public class FactoryController {
     private URL location;
     //--pas touche--
     
-    //liste de forme
-    ArrayList<Formes> listeFormes = new ArrayList<Formes>();
-    Formes selectedForme;
+    
 
     //variable pour le MenuBar
     @FXML
@@ -101,91 +103,226 @@ public class FactoryController {
         assert menuMore != null : "fx:id=\"menuMore\" was not injected: check your FXML file 'UI.fxml'.";
 
     } 
+    /*private String stateVariable;
+    
+    public String getStateVariable() {
+    	return stateVariable;
+    }
+    
+    public void setStateVariable(String newStateVar) {
+    	stateVariable = newStateVar;
+    }*/
+    State stateStart = new StateStart();
+    State stateDessin = new StateDessin();
+    State stateConnection = new StateConnection();
+    
+    State state = stateStart;
+    
+    /*public void setState(State newState) {
+    	state = newState;
+    }*/
+    
     
     private Circle tempCercle;
     
     @FXML
     void formeDragDetected(MouseEvent event) {
-    	  /* drag was detected, start drag-and-drop gesture*/
-        System.out.println("onDragDetected");
-        
-        /* allow any transfer mode */
-        Dragboard db = formeCercle.startDragAndDrop(TransferMode.ANY);
-        
-        /* put a string on dragboard */
-        ClipboardContent cb = new ClipboardContent();
-        cb.putString("mamaCOCO");
-        db.setContent(cb);
-        
-        tempCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
-        tableauTravail.getChildren().add(tempCercle);
-        
-        event.consume();
+    	
+    	if(state.DessinerForme() == true) {
+	    	  /* drag was detected, start drag-and-drop gesture*/
+	        System.out.println("onDragDetected");
+	        
+	        /* allow any transfer mode */
+	        Dragboard db = formeCercle.startDragAndDrop(TransferMode.ANY);
+	        
+	        /* put a string on dragboard */
+	        ClipboardContent cb = new ClipboardContent();
+	        cb.putString("mamaCOCO");
+	        db.setContent(cb);
+	        
+	        tempCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
+	        tableauTravail.getChildren().add(tempCercle);
+	        
+	        event.consume();
+    	}
     }
 
     @FXML
     void paneDrageDropped(DragEvent event) {  
-    	 /* data dropped */
-        System.out.println("onDragDropped"); 
-        /* if there is a string data on dragboard, read it and use it */
-        Dragboard db = event.getDragboard();
-        boolean success = false;
-        if (db.hasString()) { 
-        	System.out.println("true");
-            success = true;
-
-            tempCercle = null;
-            
-            Circle nouveauCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
-            nouveauCercle.setFill(Paint.valueOf("BLUE"));
-            nouveauCercle.setStroke(Paint.valueOf("BLACK"));
-            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
-            System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
-
-            tableauTravail.getChildren().add(nouveauCercle);
-        }
-        /* let the source know whether the string was successfully 
-         * transferred and used */
-        event.setDropCompleted(success);
-        
-        event.consume();
+    	if(state.DessinerForme() == true) {
+	    	 /* data dropped */
+	        System.out.println("onDragDropped"); 
+	        /* if there is a string data on dragboard, read it and use it */
+	        Dragboard db = event.getDragboard();
+	        boolean success = false;
+	        if (db.hasString()) { 
+	        	System.out.println("true");
+	            success = true;
+	
+	            tempCercle = null;
+	            
+	            Circle nouveauCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
+	            nouveauCercle.setFill(Paint.valueOf("BLUE"));
+	            nouveauCercle.setStroke(Paint.valueOf("BLACK"));
+	            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
+	            System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
+	
+	            tableauTravail.getChildren().add(nouveauCercle);
+	        }
+	        /* let the source know whether the string was successfully 
+	         * transferred and used */
+	        event.setDropCompleted(success);
+	        
+	        event.consume();
+    	}
     	
     }
 
     @FXML
     void paneDrageOver(DragEvent  event) {
-        /* data is dragged over the target */
-        System.out.println("onDragOver");
-        
-        tempCercle.setCenterX(event.getX());
-        tempCercle.setCenterY(event.getY());
-                
-         
-        /* accept it only if it is  not dragged from the same node 
-         * and if it has a string data */ 
-            /* allow for both copying and moving, whatever user chooses */
-        event.acceptTransferModes(TransferMode.COPY_OR_MOVE); 
-        event.consume();
+    	if(state.DessinerForme() == true) {
+	        /* data is dragged over the target */
+	        System.out.println("onDragOver");
+	        
+	        tempCercle.setCenterX(event.getX());
+	        tempCercle.setCenterY(event.getY());
+	                
+	         
+	        /* accept it only if it is  not dragged from the same node 
+	         * and if it has a string data */ 
+	            /* allow for both copying and moving, whatever user chooses */
+	        event.acceptTransferModes(TransferMode.COPY_OR_MOVE); 
+	        event.consume();
+    	}
     }
 
 
     @FXML
     void paneDragEntered(DragEvent event) {
-    	 /* the drag-and-drop gesture entered the target */
-        System.out.println("onDragEntered");
-        /* show to the user that it is an actual gesture target */
-        if (event.getGestureSource() != tableauTravail &&
-                event.getDragboard().hasString()) {
-        	System.out.println("dropp succes");
-        }
-        
-        event.consume();
+    	if(state.DessinerForme() == true) {
+	    	 /* the drag-and-drop gesture entered the target */
+	        System.out.println("onDragEntered");
+	        /* show to the user that it is an actual gesture target */
+	        if (event.getGestureSource() != tableauTravail &&
+	                event.getDragboard().hasString()) {
+	        	System.out.println("dropp succes");
+	        }
+	        
+	        event.consume();
+    	}
     }
     
-/*************** Ligne/Fleche ***************/
+/*************** Fleche ***************/
     
     private Line curLine;
-    private String flecheStyle;
+    private Polygon triangleHead;
+    private Polygon triangleBack;
+    private String flecheStyle = "simple";
+    
+    
+      
+    @FXML
+    void drawingMouseDragged(MouseEvent event) {
+    	if(state.Conneter() == true) {
+	    	//Code pour la ligne 
+	    	
+	    	if (!event.isPrimaryButtonDown()) {
+	            return;
+	        }
+	
+	        if (curLine == null) {
+	            return;
+	        }
+	
+	        curLine.setEndX(event.getX());
+	        curLine.setEndY(event.getY());
+	        
+	        //Sert pour faire augmenter la taille de la fenï¿½tre si la line est trop grande
+	        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
+	        double my = Math.max(curLine.getStartY(), curLine.getEndY());
+	
+	        if (mx > tableauTravail.getMinWidth()) {
+	        	tableauTravail.setMinWidth(mx);
+	        }
+	
+	        if (my > tableauTravail.getMinHeight()) {
+	        	tableauTravail.setMinHeight(my);
+	        }
+	        
+	        //Code pour la tete de la fleche
+	        
+	        //Rotation de la tete de la fleche en fonction de l'angle entre le fin et le debut de la ligne
+	        double angle;
+	        angle = Math.atan2(curLine.getEndY()-curLine.getStartY(), curLine.getEndX()-curLine.getStartX());
+	        angle = Math.toDegrees(angle);
+	        
+	        if(flecheStyle == "double") {
+	        	//Fleche double
+	        	triangleBack.setRotate(angle-180);
+	        	triangleBack.setTranslateX(2.5);
+	        	}
+	        
+	        //Translation de la tête de la fleche avec le mouvement de la souris
+	        triangleHead.setTranslateX(curLine.getEndX()-curLine.getStartX()+2);
+	        triangleHead.setTranslateY(curLine.getEndY()-curLine.getStartY());
+	        
+	        triangleHead.setRotate(angle);
+    	}
+        
+        
+    }
+    
+    @FXML
+    void drawingMousePressed(MouseEvent event) {
+    	if(state.Conneter() == true) {
+	    	
+	    	if (!event.isPrimaryButtonDown()) {
+	            return;
+	        }
+	
+	        curLine = new Line(
+	            event.getX(), event.getY(), 
+	            event.getX(), event.getY()
+	        );
+	        
+	        
+	        
+	        triangleHead = new Polygon(event.getX()-5, event.getY()+5,
+	        		event.getX(),event.getY(),event.getX()-5,event.getY()-5);
+	    
+	        
+	        if(flecheStyle == "double") {
+	        	
+	        	curLine.setStyle("-fx-stroke: black;");
+	        	triangleHead.setStyle("-fx-stroke: black;");
+	        	
+	        	triangleBack = new Polygon(event.getX()-6, event.getY()+6,
+	            		event.getX(),event.getY(),event.getX()-6,event.getY()-6);
+	        	
+	        	tableauTravail.getChildren().add(triangleBack);
+	        	}
+	        
+	        else if(flecheStyle == "simple") {
+	        	curLine.setStyle("-fx-stroke: red;");
+	        	triangleHead.setStyle("-fx-stroke: red;");
+	        	triangleHead.setFill(Color.RED);
+	        	}
+	        
+	        tableauTravail.getChildren().add(curLine);
+	        tableauTravail.getChildren().add(triangleHead);
+    	}
+        
+    }
+
+    @FXML
+    void drawingMouseReleased(MouseEvent event) {
+    	if(state.Conneter() == true) {
+	    	curLine = null;
+	    	triangleHead = null;
+    	}
+    }
+    
+
     
     @FXML
     private Button flecheDouble;
@@ -193,7 +330,6 @@ public class FactoryController {
     @FXML
     void boutonFlecheDoubleClicked(ActionEvent event) {
     	flecheStyle = "double";
-    	
     }
     
 
@@ -204,79 +340,22 @@ public class FactoryController {
     void boutonFlecheSimpleClicked(ActionEvent event) {
     	flecheStyle = "simple";
     }
-      
-    @FXML
-    void drawingMouseDragged(MouseEvent event) {
-    	if (!event.isPrimaryButtonDown()) {
-            return;
-        }
-
-        if (curLine == null) {
-            return;
-        }
-
-        curLine.setEndX(event.getX());
-        curLine.setEndY(event.getY());
-        
-        //Sert pour faire augmenter la taille de la fenï¿½tre si la line est trop grande
-        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
-        double my = Math.max(curLine.getStartY(), curLine.getEndY());
-
-        if (mx > tableauTravail.getMinWidth()) {
-        	tableauTravail.setMinWidth(mx);
-        }
-
-        if (my > tableauTravail.getMinHeight()) {
-        	tableauTravail.setMinHeight(my);
-        }
-        //System.out.println(curLine.getEndX() + " " + curLine.getEndY());
-    }
     
     @FXML
-    void drawingMousePressed(MouseEvent event) {
-    	
-    	if (!event.isPrimaryButtonDown()) {
-            return;
-        }
-        curLine = new Line(
-            event.getX(), event.getY(), 
-            event.getX(), event.getY()
-        );
-        
-        if(flecheStyle == "double") {
-        	curLine.setStyle("-fx-stroke: black;");
-        	}
-        
-        else if(flecheStyle == "simple") {
-        	curLine.setStyle("-fx-stroke: red;");
-        	}
-        
-        tableauTravail.getChildren().add(curLine);
-        /*System.out.println("Mouse Pressed");
-        System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
+    private Button boutonConnect;
+    
+    @FXML
+    private Button boutonDessin;
+    
+    @FXML
+    void boutonConnectClicked(ActionEvent event) {
+    	state = stateConnection;
     }
 
     @FXML
-    void drawingMouseReleased(MouseEvent event) {
-    	/*System.out.println("Mouse Released");
-    	System.out.println(curLine.getEndX() + " " + curLine.getEndY());*/
-    	curLine = null;
+    void boutonDessinClicked(ActionEvent event) {
+    	state = stateDessin;
     }
-    
-    //bouton 
-
-
-    @FXML
-    private Button bouton1;
-    
-    @FXML
-    private Button bouton2;
-    
-    @FXML
-    private Button bouton3;
-    
-    @FXML
-    private Button bouton4;
     
     @FXML
     private Button bouton5;
