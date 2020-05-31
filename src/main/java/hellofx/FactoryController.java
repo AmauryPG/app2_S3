@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 
 
 import javafx.scene.shape.*;
-import models.Arrow;
 import state.State;
 import state.StateConnection;
 import state.StateDessin;
