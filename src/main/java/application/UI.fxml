@@ -114,8 +114,8 @@
                   <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="6.0" />
                   <MenuButton mnemonicParsing="false" text="MenuButton">
                     <items>
-                      <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#boutonHandler" text="Action 1" />
-                      <MenuItem fx:id="menuItem2" mnemonicParsing="false" onAction="#boutonHandler" text="Action 2" />
+                      <MenuItem fx:id="undo" mnemonicParsing="false" onAction="#undoClicked" text="Undo" />
+                      <MenuItem fx:id="redo" mnemonicParsing="false" onAction="#redoClicked" text="Redo" />
                     </items>
                   </MenuButton>
                   <Label text="Modes" />

@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,9 +28,9 @@ import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
-
+import java.util.Vector;
 
 import javafx.scene.shape.*;
 import state.State;
@@ -117,11 +119,8 @@ public class FactoryController {
     
     State state = stateStart;
     
-    /*public void setState(State newState) {
-    	state = newState;
-    }*/
-    
-    
+    Vector<Node> removedChildren = new Vector<Node>();
+
     private Circle tempCercle;
     
     @FXML
@@ -167,6 +166,7 @@ public class FactoryController {
 	            System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
 	
 	            tableauTravail.getChildren().add(nouveauCercle);
+	           
 	        }
 	        /* let the source know whether the string was successfully 
 	         * transferred and used */
@@ -216,7 +216,9 @@ public class FactoryController {
     private Line curLine;
     private Polygon triangleHead;
     private Polygon triangleBack;
+    private Group arrow;
     private String flecheStyle = "simple";
+    
     
     
       
@@ -278,18 +280,22 @@ public class FactoryController {
 	    	if (!event.isPrimaryButtonDown()) {
 	            return;
 	        }
-	
+	    	
+	    	/* Instanciation de la fleche */
+	    	
 	        curLine = new Line(
 	            event.getX(), event.getY(), 
 	            event.getX(), event.getY()
 	        );
 	        
-	        
-	        
 	        triangleHead = new Polygon(event.getX()-5, event.getY()+5,
 	        		event.getX(),event.getY(),event.getX()-5,event.getY()-5);
 	    
+	        arrow = new Group();
 	        
+	        /* Couleur de fleche et style de fleche */
+	        
+	        /* Fleche double */
 	        if(flecheStyle == "double") {
 	        	
 	        	curLine.setStyle("-fx-stroke: black;");
@@ -298,17 +304,23 @@ public class FactoryController {
 	        	triangleBack = new Polygon(event.getX()-6, event.getY()+6,
 	            		event.getX(),event.getY(),event.getX()-6,event.getY()-6);
 	        	
-	        	tableauTravail.getChildren().add(triangleBack);
+	        	arrow.getChildren().addAll(curLine, triangleHead, triangleBack);
+	        	
 	        	}
 	        
+	        /* Fleche simple */
 	        else if(flecheStyle == "simple") {
 	        	curLine.setStyle("-fx-stroke: red;");
 	        	triangleHead.setStyle("-fx-stroke: red;");
 	        	triangleHead.setFill(Color.RED);
+	        	
+	        	arrow.getChildren().addAll(curLine, triangleHead);
 	        	}
+
+	        /* Affichage de la fleche dans le tableau de travail */
 	        
-	        tableauTravail.getChildren().add(curLine);
-	        tableauTravail.getChildren().add(triangleHead);
+	        tableauTravail.getChildren().add(arrow);
+
     	}
         
     }
@@ -329,6 +341,7 @@ public class FactoryController {
     @FXML
     void boutonFlecheDoubleClicked(ActionEvent event) {
     	flecheStyle = "double";
+
     }
     
 
@@ -338,6 +351,41 @@ public class FactoryController {
     @FXML
     void boutonFlecheSimpleClicked(ActionEvent event) {
     	flecheStyle = "simple";
+    	
+    }
+    
+    @FXML
+    private MenuItem undo;
+    	
+    @FXML
+    private MenuItem redo;
+    
+    
+    
+    @FXML
+    void redoClicked(ActionEvent event) {
+    	if(removedChildren.size() == 0) {
+    		System.out.println("Erreur, il n'y a plus rien a redo");
+    	}
+    	else {
+    		tableauTravail.getChildren().add(removedChildren.get(removedChildren.size()-1));
+    		removedChildren.remove(removedChildren.size()-1);
+    	}
+    }
+
+    @FXML
+    void undoClicked(ActionEvent event) {
+    	
+    	if(tableauTravail.getChildren().size() == 0) {
+    		System.out.println("Erreur, il n'y a plus rien a undo");
+    	}
+    	else if(state.Conneter() == true) {
+    		removedChildren.add(tableauTravail.getChildren().remove(tableauTravail.getChildren().size()-1));
+    	}
+    	else if(state.DessinerForme() == true) {
+    		removedChildren.add(tableauTravail.getChildren().remove(tableauTravail.getChildren().size()-1));	
+    	}
+    	
     }
     
     @FXML
