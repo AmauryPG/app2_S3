@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -34,6 +35,7 @@ import com.sun.prism.paint.Color;
 import enums.eshape;
 import formes.*;
 import javafx.scene.shape.*;
+import etatFleche.*;
 
 public class FactoryController {
 	 
@@ -146,7 +148,7 @@ public class FactoryController {
         assert menuFile != null : "fx:id=\"menuFile\" was not injected: check your FXML file 'UI.fxml'.";
         assert titledPaneEstimator != null : "fx:id=\"titledPaneEstimator\" was not injected: check your FXML file 'UI.fxml'.";
         assert tableauTravail != null : "fx:id=\"tableauTravail\" was not injected: check your FXML file 'UI.fxml'.";
-        assert tiltedPaneEnergy != null : "fx:id=\"tiltedPaneEnergy\" was not injected: check your FXML file 'UI.fxml'.";
+        assert tiltedPaneEnergy != null : "fx:id=\"tiltedPaneEnergy\" was not injected: check your FXML file 'UI.fxml'."; 
         assert menuMore != null : "fx:id=\"menuMore\" was not injected: check your FXML file 'UI.fxml'.";
 
     } 
@@ -158,6 +160,12 @@ public class FactoryController {
     private double [] anchorY = {0,0,0};  
     private Canvas tempCanvas;
     private Line curLine;
+
+    private Polygon triangleHead;
+    private Polygon triangleBack;
+    private Group arrow;
+    
+    private contextFleche context = new contextFleche(); 
     
     private Canvas gestionFlechesSurComposantes(Canvas can)
     {
@@ -192,26 +200,26 @@ public class FactoryController {
                  	   //pour l'axe des X
                  	   if(tempCenterX[0] < centerX[0])
                  	   {
-                 		   tempCenterX[1] = tempCenterX[0] + tempCanvas.getWidth()/2;
-                 		   centerX[1] = centerX[0] - can.getWidth()/2;
-                  		   tempCenterY[1] = tempCenterY[0];
-                  		   centerY[1] = centerY[0];
+                 		  tempCenterX[1] = tempCenterX[0] + tempCanvas.getWidth()/2;
+                 		  centerX[1] = centerX[0] - can.getWidth()/2;
+                  		  tempCenterY[1] = tempCenterY[0];
+                  		  centerY[1] = centerY[0];
                  	   }
                  	   else
                  	   {
-                 		   	tempCenterX[1] = tempCenterX[0] - tempCanvas.getWidth()/2;
-                 		   	centerX[1] = centerX[0] + can.getWidth()/2;
-                  		   tempCenterY[1] = tempCenterY[0];
-                  		   centerY[1] = centerY[0];
+                 		  tempCenterX[1] = tempCenterX[0] - tempCanvas.getWidth()/2;
+                 		  centerX[1] = centerX[0] + can.getWidth()/2;
+                  		  tempCenterY[1] = tempCenterY[0];
+                  		  centerY[1] = centerY[0];
                  	   }
                  	    
                  	   //pour l'axe des Y
                  	   if(tempCenterY[0] < centerY[0])
                  	   {
-                 		   tempCenterY[2] = tempCenterY[0] + tempCanvas.getHeight()/2;
-                 		   centerY[2] = centerY[0] - can.getHeight()/2;
-                  		   tempCenterX[2] = tempCenterX[0];
-                  		   centerX[2] = centerX[0];
+                 		  tempCenterY[2] = tempCenterY[0] + tempCanvas.getHeight()/2;
+                 		  centerY[2] = centerY[0] - can.getHeight()/2;
+                  		  tempCenterX[2] = tempCenterX[0];
+                  		  centerX[2] = centerX[0];
                  	   }
                  	   else
                  	   {
@@ -248,7 +256,25 @@ public class FactoryController {
                      		   tempCenterX[0], tempCenterY[0],
                      		   centerX[0], centerY[0]
                             );  
-                          
+                        
+                        //code pour cree la tete de la fleche
+                        triangleHead = new Polygon(centerX[0]-5, centerY[0]+5,
+                        		centerX[0], centerY[0], centerX[0]-5, centerY[0]-5);
+                    
+                        arrow = new Group();
+                        
+                        //Couleur de fleche et style de fleche
+                        
+                         
+                        
+                        FlecheRouge fleche = new FlecheRouge();
+                        //FlecheNoir fleche = new FlecheNoir();
+                        fleche.assigner(context);
+                        
+                        context.getState().setCouleurFleche(curLine, triangleBack, triangleHead, arrow, centerX[0], centerY[0]);
+                        
+                        //Affichage de la fleche dans le tableau de travail
+                        tableauTravail.getChildren().add(arrow);
                         //on ajoute la ligne au Pane
                         tableauTravail.getChildren().add(curLine); 
                          
