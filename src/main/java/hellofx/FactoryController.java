@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -32,7 +33,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import enums.eshape;
+import formes.ShapeFactory;
 import javafx.scene.shape.*;
+
 import state.State;
 import state.StateConnection;
 import state.StateDessin;
@@ -121,103 +125,228 @@ public class FactoryController {
     
     Vector<Node> removedChildren = new Vector<Node>();
 
-    private Circle tempCercle;
+    private ArrayList<Canvas> listFormes = new ArrayList<Canvas>();
     
-    @FXML
-    void formeDragDetected(MouseEvent event) {
-    	
-    	if(state.DessinerForme() == true) {
-	    	  /* drag was detected, start drag-and-drop gesture*/
-	        System.out.println("onDragDetected");
-	        
-	        /* allow any transfer mode */
-	        Dragboard db = formeCercle.startDragAndDrop(TransferMode.ANY);
-	        
-	        /* put a string on dragboard */
-	        ClipboardContent cb = new ClipboardContent();
-	        cb.putString("mamaCOCO");
-	        db.setContent(cb);
-	        
-	        tempCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
-	        tableauTravail.getChildren().add(tempCercle);
-	        
-	        event.consume();
-    	}
-    }
-
-    @FXML
-    void paneDrageDropped(DragEvent event) {  
-    	if(state.DessinerForme() == true) {
-	    	 /* data dropped */
-	        System.out.println("onDragDropped"); 
-	        /* if there is a string data on dragboard, read it and use it */
-	        Dragboard db = event.getDragboard();
-	        boolean success = false;
-	        if (db.hasString()) { 
-	        	System.out.println("true");
-	            success = true;
-	
-	            tempCercle = null;
-	            
-	            Circle nouveauCercle = new Circle(event.getX(), event.getY(), formeCercle.getRadius());
-	            nouveauCercle.setFill(Paint.valueOf("BLUE"));
-	            nouveauCercle.setStroke(Paint.valueOf("BLACK"));
-	            nouveauCercle.setStrokeType(StrokeType.valueOf("INSIDE"));
-	            System.out.println(event.getX() + " " + event.getY() + " " + formeCercle.getRadius());
-	
-	            tableauTravail.getChildren().add(nouveauCercle);
-	           
-	        }
-	        /* let the source know whether the string was successfully 
-	         * transferred and used */
-	        event.setDropCompleted(success);
-	        
-	        event.consume();
-    	}
-    	
-    }
-
-    @FXML
-    void paneDrageOver(DragEvent  event) {
-    	if(state.DessinerForme() == true) {
-	        /* data is dragged over the target */
-	        System.out.println("onDragOver");
-	        
-	        tempCercle.setCenterX(event.getX());
-	        tempCercle.setCenterY(event.getY());
-	                
-	         
-	        /* accept it only if it is  not dragged from the same node 
-	         * and if it has a string data */ 
-	            /* allow for both copying and moving, whatever user chooses */
-	        event.acceptTransferModes(TransferMode.COPY_OR_MOVE); 
-	        event.consume();
-    	}
-    }
-
-
-    @FXML
-    void paneDragEntered(DragEvent event) {
-    	if(state.DessinerForme() == true) {
-	    	 /* the drag-and-drop gesture entered the target */
-	        System.out.println("onDragEntered");
-	        /* show to the user that it is an actual gesture target */
-	        if (event.getGestureSource() != tableauTravail &&
-	                event.getDragboard().hasString()) {
-	        	System.out.println("dropp succes");
-	        }
-	        
-	        event.consume();
-    	}
-    }
-    
-/*************** Fleche ***************/
-    
+    private int nbrAnchor = 0;
+    private double [] anchorX = {0,0,0};
+    private double [] anchorY = {0,0,0};  
+    private Canvas tempCanvas;
     private Line curLine;
     private Polygon triangleHead;
     private Polygon triangleBack;
     private Group arrow;
     private String flecheStyle = "simple";
+    
+    private Canvas gestionFlechesSurComposantes(Canvas can)
+    {
+    	//on fait la gestion des fleches
+    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override 
+            public void handle(javafx.scene.input.MouseEvent e) {    
+            	if(state.Conneter() == true) {
+	            	if(e.getClickCount() > 1)
+	            	{
+	            		anchorX[nbrAnchor] = can.getTranslateY();
+	                    anchorY[nbrAnchor] = can.getTranslateX();  
+	                    
+	                    if(nbrAnchor < 1)
+	                    {
+	                 	   nbrAnchor++; 
+	                 	   tempCanvas = can;
+	                    }
+	                    else
+	                    {
+	                 	   nbrAnchor = 0;                   	   
+	                 	   
+	                 	   //on cree la nouvelle ligne 
+	                 	   
+	                 	   //premier forme selectionner
+	                 	   double [] tempCenterX = {tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, 0, 0};
+	                 	   double [] tempCenterY = {tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 0, 0};
+	                 	   
+	                 	   //seconde forme selectionner
+	                 	   double [] centerX = {can.getTranslateX() + can.getWidth()/2, 0, 0};
+	                 	   double [] centerY = {can.getTranslateY() + can.getHeight()/2, 0, 0};
+	                 	   
+	                 	   //pour l'axe des X
+	                 	   if(tempCenterX[0] < centerX[0])
+	                 	   {
+	                 		   tempCenterX[1] = tempCenterX[0] + tempCanvas.getWidth()/2;
+	                 		   centerX[1] = centerX[0] - can.getWidth()/2;
+	                  		   tempCenterY[1] = tempCenterY[0];
+	                  		   centerY[1] = centerY[0];
+	                 	   }
+	                 	   else
+	                 	   {
+	                 		   	tempCenterX[1] = tempCenterX[0] - tempCanvas.getWidth()/2;
+	                 		   	centerX[1] = centerX[0] + can.getWidth()/2;
+	                  		   tempCenterY[1] = tempCenterY[0];
+	                  		   centerY[1] = centerY[0];
+	                 	   }
+	                 	    
+	                 	   //pour l'axe des Y
+	                 	   if(tempCenterY[0] < centerY[0])
+	                 	   {
+	                 		   tempCenterY[2] = tempCenterY[0] + tempCanvas.getHeight()/2;
+	                 		   centerY[2] = centerY[0] - can.getHeight()/2;
+	                  		   tempCenterX[2] = tempCenterX[0];
+	                  		   centerX[2] = centerX[0];
+	                 	   }
+	                 	   else
+	                 	   {
+	                 		   tempCenterY[2] = tempCenterY[0] - tempCanvas.getHeight()/2;
+	                 			centerY[2] = centerY[0] + can.getHeight()/2;
+	                 			tempCenterX[2] = tempCenterX[0];
+	                		   	centerX[2] = centerX[0];
+	                 	   }
+	                 	   
+	                 	   //on fait pythagore entre les pointes les plus proches
+	                 	   //des deux formes
+						 	double ligne1 = Math.sqrt(Math.pow((tempCenterY[1] - centerY[1]), 2) + Math.pow((tempCenterX[1] - centerX[1]), 2));
+						 	double ligne2 = Math.sqrt(Math.pow((tempCenterY[2] - centerY[2]), 2) + Math.pow((tempCenterX[2] - centerX[2]), 2)); 
+						 	 
+						 	//on choisit quel ligne est la plus courte 
+						 	//de deux ligne construit auparavant
+						 	 if(ligne1 < ligne2)
+						 	 {
+						 		centerX[0] = centerX[1];
+						 		centerY[0] = centerY[1];
+						 		tempCenterY[0] = tempCenterY[1];
+						 		tempCenterX[0] = tempCenterX[1];
+						 	 }
+						 	 else
+						 	 {
+						 		centerX[0] = centerX[2];
+						 		centerY[0] = centerY[2];
+						 		tempCenterY[0] = tempCenterY[2];
+						 		tempCenterX[0] = tempCenterX[2];
+						 	 }
+	                 	   
+						 	 //on dessine la ligne choisit auparavant
+	                        curLine = new Line(
+	                     		   tempCenterX[0], tempCenterY[0],
+	                     		   centerX[0], centerY[0]
+	                            );  
+	                        
+	                        double angle;
+	                        arrow = new Group();
+	                        
+	                        //on ajoute la tête de la fleche avec un triangle
+	                        triangleHead = new Polygon(curLine.getEndX()-5, curLine.getEndY()+5,
+	                        		curLine.getEndX(),curLine.getEndY(),curLine.getEndX()-5,curLine.getEndY()-5);
+	                        triangleHead.setTranslateX(2);
+	                        
+	                      //rotatation du triangle pour qu'il soit aligner à la ligne
+	            	        angle = Math.atan2(curLine.getEndY()-curLine.getStartY(), curLine.getEndX()-curLine.getStartX());
+	            	        angle = Math.toDegrees(angle);
+	                        
+	                        if(flecheStyle == "simple") {
+	                        	
+	                        	curLine.setStroke(Color.RED);
+	                        	triangleHead.setFill(Color.RED);
+	
+		            	        //on ajoute le triangle et la fleche dans un group 
+		                        arrow.getChildren().addAll(curLine, triangleHead);
+	                        }
+	                        else if(flecheStyle =="double") {
+	                        	curLine.setStyle("-fx-stroke: black;");
+	            	        	triangleHead.setStyle("-fx-stroke: black;");
+	            	        	
+	            	        	triangleBack = new Polygon(curLine.getStartX()-6, curLine.getStartY()+6,
+	            	        			curLine.getStartX(),curLine.getStartY(),curLine.getStartX()-6,curLine.getStartY()-6);
+	            	        	triangleBack.setRotate(angle-180);
+	            	        	triangleBack.setTranslateX(2.5);
+	            	        	
+	            	        	arrow.getChildren().addAll(curLine, triangleHead, triangleBack);
+	                        }
+	                        triangleHead.setRotate(angle);
+	                        //on ajoute la fleche au Pane
+	                        tableauTravail.getChildren().add(arrow);
+	                         
+	                    }    
+	            	}                              
+	            } 
+            }
+         });  
+    	return can;
+    } 
+    
+    @FXML
+    void mouseClickedElipse(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.ELIPSE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements
+		    gestionFlechesSurComposantes(can);
+    	}
+    	
+    }  
+
+    @FXML
+    void mouseClickedCarre(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.CARRE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    gestionFlechesSurComposantes(can);
+    	}
+    }
+    
+    @FXML
+    void mouseClickedRectangle(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.RECTANGLE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements
+		    gestionFlechesSurComposantes(can);
+    	}
+    	
+    }
+    
+    @FXML
+    void mouseClickedCercle(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.CERCLE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements
+		    gestionFlechesSurComposantes(can);
+    	}
+    } 
+
+    @FXML
+    void paneDrageDropped(DragEvent event) {  /*
+        System.out.println("onDragDropped"); 
+        //if there is a string data on dragboard, read it and use it 
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) { 
+        	System.out.println("true");
+            success = true;
+        }
+        // let the source know whether the string was successfully 
+        // transferred and used 
+        event.setDropCompleted(success);
+        
+        event.consume();
+    	*/
+    }
+    
+    
+/*************** Fleche ***************/
+   /* 
+    
     
     
     
@@ -270,8 +399,11 @@ public class FactoryController {
 	        triangleHead.setRotate(angle);
     	}
         
-        
+       
     }
+    
+    
+    
     
     @FXML
     void drawingMousePressed(MouseEvent event) {
@@ -281,8 +413,8 @@ public class FactoryController {
 	            return;
 	        }
 	    	
-	    	/* Instanciation de la fleche */
-	    	
+	    	// Instanciation de la fleche 
+	    
 	        curLine = new Line(
 	            event.getX(), event.getY(), 
 	            event.getX(), event.getY()
@@ -293,9 +425,9 @@ public class FactoryController {
 	    
 	        arrow = new Group();
 	        
-	        /* Couleur de fleche et style de fleche */
+	        // Couleur de fleche et style de fleche
 	        
-	        /* Fleche double */
+	        // Fleche double
 	        if(flecheStyle == "double") {
 	        	
 	        	curLine.setStyle("-fx-stroke: black;");
@@ -308,7 +440,7 @@ public class FactoryController {
 	        	
 	        	}
 	        
-	        /* Fleche simple */
+	        // Fleche simple
 	        else if(flecheStyle == "simple") {
 	        	curLine.setStyle("-fx-stroke: red;");
 	        	triangleHead.setStyle("-fx-stroke: red;");
@@ -317,13 +449,15 @@ public class FactoryController {
 	        	arrow.getChildren().addAll(curLine, triangleHead);
 	        	}
 
-	        /* Affichage de la fleche dans le tableau de travail */
+	        // Affichage de la fleche dans le tableau de travail 
 	        
 	        tableauTravail.getChildren().add(arrow);
 
     	}
         
     }
+    
+   
 
     @FXML
     void drawingMouseReleased(MouseEvent event) {
@@ -332,7 +466,7 @@ public class FactoryController {
 	    	triangleHead = null;
     	}
     }
-    
+    */
 
     
     @FXML
