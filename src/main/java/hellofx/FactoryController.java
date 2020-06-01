@@ -36,7 +36,7 @@ import java.util.Vector;
 import enums.eshape;
 import formes.ShapeFactory;
 import javafx.scene.shape.*;
-
+import javafx.scene.shape.Rectangle;
 import state.State;
 import state.StateConnection;
 import state.StateDessin;
@@ -139,7 +139,7 @@ public class FactoryController {
     private Rectangle formeRectangle;
 
     @FXML
-    private Rectangle formeCarre;
+    private Rectangle formeCarre; 
     
     @FXML
     void boutonHandler(ActionEvent event) {
@@ -272,22 +272,10 @@ public class FactoryController {
                      		   tempCenterX[0], tempCenterY[0],
                      		   centerX[0], centerY[0]
                             );  
-                        
-                        //code pour cree la tete de la fleche
-                        triangleHead = new Polygon(centerX[0]-5, centerY[0]+5,
-                        		centerX[0], centerY[0], centerX[0]-5, centerY[0]-5);
-                    
-                        arrow = new Group();
-                        
+                                                
                         //Couleur de fleche et style de fleche
-                        
-                         
-                        
-                        FlecheRouge fleche = new FlecheRouge();
-                        //FlecheNoir fleche = new FlecheNoir();
-                        fleche.assigner(context);
-                        
-                        context.getState().setCouleurFleche(curLine, triangleBack, triangleHead, arrow, centerX[0], centerY[0]);
+                        arrow = new Group();                        
+                        context.getState().setTypeFleche(curLine, triangleBack, triangleHead, arrow, centerX[0], centerY[0]);
                         
                         //Affichage de la fleche dans le tableau de travail
                         tableauTravail.getChildren().add(arrow);
@@ -299,202 +287,9 @@ public class FactoryController {
             } 
          });  
     	return can;
-    } 
-    
-    @FXML
-    void mouseClickedElipse(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	Canvas can = ShapeFactory.createShape(eshape.ELIPSE); 
-    	tableauTravail.getChildren().add(can);
-    	listFormes.add(can); 
-    	
-    	//la fonction controle les connection entre les elements
-    	gestionFlechesSurComposantes(can);
     }  
 
-    @FXML
-    void mouseClickedCarre(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	Canvas can = ShapeFactory.createShape(eshape.CARRE); 
-    	tableauTravail.getChildren().add(can);
-    	listFormes.add(can); 
-    	
-    	//la fonction controle les connection entre les elements 
-    	gestionFlechesSurComposantes(can);
-    }
     
-    @FXML
-    void mouseClickedRectangle(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	Canvas can = ShapeFactory.createShape(eshape.RECTANGLE); 
-    	tableauTravail.getChildren().add(can);
-    	listFormes.add(can); 
-    	
-    	//la fonction controle les connection entre les elements
-    	gestionFlechesSurComposantes(can);
-    }
-    
-    @FXML
-    void mouseClickedCercle(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	Canvas can = ShapeFactory.createShape(eshape.CERCLE); 
-    	tableauTravail.getChildren().add(can);
-    	listFormes.add(can); 
-    	
-    	//la fonction controle les connection entre les elements
-    	gestionFlechesSurComposantes(can);
-    } 
-
-    private ArrayList<Canvas> listFormes = new ArrayList<Canvas>();
-    
-    private int nbrAnchor = 0;
-    private double [] anchorX = {0,0,0};
-    private double [] anchorY = {0,0,0};  
-    private Canvas tempCanvas;
-    private Line curLine;
-    private Polygon triangleHead;
-    private Polygon triangleBack;
-    private Group arrow;
-    private String flecheStyle = "simple";
-    
-    private Canvas gestionFlechesSurComposantes(Canvas can)
-    {
-    	//on fait la gestion des fleches
-    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
-            @Override 
-            public void handle(javafx.scene.input.MouseEvent e) {    
-            	if(state.Conneter() == true) {
-	            	if(e.getClickCount() > 1)
-	            	{
-	            		anchorX[nbrAnchor] = can.getTranslateY();
-	                    anchorY[nbrAnchor] = can.getTranslateX();  
-	                    
-	                    if(nbrAnchor < 1)
-	                    {
-	                 	   nbrAnchor++; 
-	                 	   tempCanvas = can;
-	                    }
-	                    else
-	                    {
-	                 	   nbrAnchor = 0;                   	   
-	                 	   
-	                 	   //on cree la nouvelle ligne 
-	                 	   
-	                 	   //premier forme selectionner
-	                 	   double [] tempCenterX = {tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, 0, 0};
-	                 	   double [] tempCenterY = {tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 0, 0};
-	                 	   
-	                 	   //seconde forme selectionner
-	                 	   double [] centerX = {can.getTranslateX() + can.getWidth()/2, 0, 0};
-	                 	   double [] centerY = {can.getTranslateY() + can.getHeight()/2, 0, 0};
-	                 	   
-	                 	   //pour l'axe des X
-	                 	   if(tempCenterX[0] < centerX[0])
-	                 	   {
-	                 		   tempCenterX[1] = tempCenterX[0] + tempCanvas.getWidth()/2;
-	                 		   centerX[1] = centerX[0] - can.getWidth()/2;
-	                  		   tempCenterY[1] = tempCenterY[0];
-	                  		   centerY[1] = centerY[0];
-	                 	   }
-	                 	   else
-	                 	   {
-	                 		   	tempCenterX[1] = tempCenterX[0] - tempCanvas.getWidth()/2;
-	                 		   	centerX[1] = centerX[0] + can.getWidth()/2;
-	                  		   tempCenterY[1] = tempCenterY[0];
-	                  		   centerY[1] = centerY[0];
-	                 	   }
-	                 	    
-	                 	   //pour l'axe des Y
-	                 	   if(tempCenterY[0] < centerY[0])
-	                 	   {
-	                 		   tempCenterY[2] = tempCenterY[0] + tempCanvas.getHeight()/2;
-	                 		   centerY[2] = centerY[0] - can.getHeight()/2;
-	                  		   tempCenterX[2] = tempCenterX[0];
-	                  		   centerX[2] = centerX[0];
-	                 	   }
-	                 	   else
-	                 	   {
-	                 		   tempCenterY[2] = tempCenterY[0] - tempCanvas.getHeight()/2;
-	                 			centerY[2] = centerY[0] + can.getHeight()/2;
-	                 			tempCenterX[2] = tempCenterX[0];
-	                		   	centerX[2] = centerX[0];
-	                 	   }
-	                 	   
-	                 	   //on fait pythagore entre les pointes les plus proches
-	                 	   //des deux formes
-						 	double ligne1 = Math.sqrt(Math.pow((tempCenterY[1] - centerY[1]), 2) + Math.pow((tempCenterX[1] - centerX[1]), 2));
-						 	double ligne2 = Math.sqrt(Math.pow((tempCenterY[2] - centerY[2]), 2) + Math.pow((tempCenterX[2] - centerX[2]), 2)); 
-						 	 
-						 	//on choisit quel ligne est la plus courte 
-						 	//de deux ligne construit auparavant
-						 	 if(ligne1 < ligne2)
-						 	 {
-						 		centerX[0] = centerX[1];
-						 		centerY[0] = centerY[1];
-						 		tempCenterY[0] = tempCenterY[1];
-						 		tempCenterX[0] = tempCenterX[1];
-						 	 }
-						 	 else
-						 	 {
-						 		centerX[0] = centerX[2];
-						 		centerY[0] = centerY[2];
-						 		tempCenterY[0] = tempCenterY[2];
-						 		tempCenterX[0] = tempCenterX[2];
-						 	 }
-	                 	   
-						 	 //on dessine la ligne choisit auparavant
-	                        curLine = new Line(
-	                     		   tempCenterX[0], tempCenterY[0],
-	                     		   centerX[0], centerY[0]
-	                            );  
-	                        
-	                        double angle;
-	                        
-	                        //l'arrow comprend la line et le/les triangle/s
-	                        arrow = new Group();
-	                        
-	                        //on ajoute la t�te de la fleche avec un triangle
-	                        triangleHead = new Polygon(curLine.getEndX()-5, curLine.getEndY()+5,
-	                        		curLine.getEndX(),curLine.getEndY(),curLine.getEndX()-5,curLine.getEndY()-5);
-	                        triangleHead.setTranslateX(2);
-	                        
-	                        //rotatation du triangle pour qu'il soit aligner � la ligne
-	            	        angle = Math.atan2(curLine.getEndY()-curLine.getStartY(), curLine.getEndX()-curLine.getStartX());
-	            	        angle = Math.toDegrees(angle);
-	                        
-	                        if(flecheStyle == "simple") {
-	                        	
-	                        	curLine.setStroke(Color.RED);
-	                        	triangleHead.setFill(Color.RED);
-	
-		            	        //on ajoute le triangle et la fleche dans un group 
-		                        arrow.getChildren().addAll(curLine, triangleHead);
-	                        }
-	                        else if(flecheStyle =="double") {
-	                        	curLine.setStyle("-fx-stroke: black;");
-	            	        	triangleHead.setStyle("-fx-stroke: black;");
-	            	        	
-	            	        	//un deuxieme triangle pour la fleche double
-	            	        	triangleBack = new Polygon(curLine.getStartX()-6, curLine.getStartY()+6,
-	            	        			curLine.getStartX(),curLine.getStartY(),curLine.getStartX()-6,curLine.getStartY()-6);
-	            	        	
-	            	        	//rotation inverse de la tete
-	            	        	triangleBack.setRotate(angle-180);
-	            	        	triangleBack.setTranslateX(2.5);
-	            	        	
-	            	        	arrow.getChildren().addAll(curLine, triangleHead, triangleBack);
-	                        }
-	                        triangleHead.setRotate(angle);
-	                        //on ajoute la fleche au Pane
-	                        tableauTravail.getChildren().add(arrow);
-	                         
-	                    }    
-	            	}                              
-	            } 
-            }
-         });  
-    	return can;
-    } 
     
     @FXML
     void mouseClickedElipse(MouseEvent event) {
@@ -555,8 +350,10 @@ public class FactoryController {
     
     @FXML
     void boutonFlecheDoubleClicked(ActionEvent event) {
-    	flecheStyle = "double";
-
+    	//flecheStyle = "double";
+        FlecheDouble fleche = new FlecheDouble();
+        fleche.assigner(context);
+    	
     }
     
 
@@ -565,7 +362,9 @@ public class FactoryController {
     
     @FXML
     void boutonFlecheSimpleClicked(ActionEvent event) {
-    	flecheStyle = "simple";
+    	//flecheStyle = "simple";
+        FlecheSimple fleche = new FlecheSimple();
+        fleche.assigner(context);
     	
     }
     
@@ -618,34 +417,6 @@ public class FactoryController {
     void boutonDessinClicked(ActionEvent event) {
     	state = stateDessin;
     }
-    
-    @FXML
-    private Button bouton5;
-    
-    @FXML
-    private Button bouton6;
-    
-    @FXML
-    private Button bouton7;
-    
-    @FXML
-    private Button bouton8;
-    
-    @FXML
-    private Button bouton9;
-
-    @FXML
-    private MenuItem menuItem1;
-
-    @FXML
-    private MenuItem menuItem2;
-    
-    @FXML
-    private Button boutonAgrandir;    
-
-    @FXML
-    void boutonHandler(ActionEvent event) {
-    	System.out.println(event.getSource().toString());
-    }
+ 
     
 }

@@ -6,6 +6,6 @@ import javafx.scene.shape.Polygon;
 
 public interface stateFleche {
 	
-	public abstract void assigner(contextFleche context);
-	public void setCouleurFleche(Line curLine, Polygon triangleBack, Polygon triangleHead, Group arrow, double x, double y);
+	public void assigner(contextFleche context);
+	public void setTypeFleche(Line curLine, Polygon triangleBack, Polygon triangleHead, Group arrow, double xdebut, double ydebut); 
 }
