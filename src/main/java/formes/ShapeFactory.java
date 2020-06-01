@@ -2,9 +2,7 @@ package formes;
  
 import enums.eshape;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
+import javafx.scene.canvas.Canvas; 
 import javafx.scene.input.MouseEvent;
 
 public class ShapeFactory {
@@ -20,7 +18,7 @@ public class ShapeFactory {
 	 	can = new nRectangle();
 		switch (shape) { 
 		case RECTANGLE:
-			can = new nRectangle();
+			can = new nRectangle(); 
 			break; 
 		case CARRE:
 			can = new nCarre();
@@ -36,10 +34,8 @@ public class ShapeFactory {
 			break;
 		}
 		can.setOnMousePressed(canvasOnMousePressed);
-		can.setOnMouseDragged(canvasOnMouseDragged);
-		can.setOnDragDetected(canvasOnDragDetected); 
-		can.setOnMouseClicked(canvasOnMouseClicked);
-		
+		can.setOnMouseDragged(canvasOnMouseDragged);  
+		 
 		return can;
 	}
 
@@ -55,7 +51,7 @@ public class ShapeFactory {
 			SceneY = mouseEvent.getSceneY();
 			TranslateX = ((Canvas) (mouseEvent.getSource())).getTranslateX();
 			TranslateY = ((Canvas) (mouseEvent.getSource())).getTranslateY();
-		}
+		} 
 	};
 
 	static EventHandler<MouseEvent> canvasOnMouseDragged = new EventHandler<MouseEvent>() {
@@ -70,22 +66,4 @@ public class ShapeFactory {
 			((Canvas) (mouseEvent.getSource())).setTranslateY(newTranslateY); 
 		}
 	};
-
-	static EventHandler<MouseEvent> canvasOnMouseClicked = new EventHandler<MouseEvent>() {
-		
-		@Override
-	    public void handle(MouseEvent event) {  
-	        System.out.println("clicked");   
- 
-	    }
-	};
-	
-	static EventHandler<MouseEvent> canvasOnDragDetected = new EventHandler<MouseEvent>() {
-		
-		@Override
-	    public void handle(MouseEvent event) {  
-	        System.out.println("onDragDetected"); 
-	        event.consume();
-	    }
-	};	 
 }
