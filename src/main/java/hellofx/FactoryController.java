@@ -108,15 +108,7 @@ public class FactoryController {
         assert menuMore != null : "fx:id=\"menuMore\" was not injected: check your FXML file 'UI.fxml'.";
 
     } 
-    /*private String stateVariable;
-    
-    public String getStateVariable() {
-    	return stateVariable;
-    }
-    
-    public void setStateVariable(String newStateVar) {
-    	stateVariable = newStateVar;
-    }*/
+
     State stateStart = new StateStart();
     State stateDessin = new StateDessin();
     State stateConnection = new StateConnection();
@@ -229,6 +221,8 @@ public class FactoryController {
 	                            );  
 	                        
 	                        double angle;
+	                        
+	                        //l'arrow comprend la line et le/les triangle/s
 	                        arrow = new Group();
 	                        
 	                        //on ajoute la tête de la fleche avec un triangle
@@ -236,7 +230,7 @@ public class FactoryController {
 	                        		curLine.getEndX(),curLine.getEndY(),curLine.getEndX()-5,curLine.getEndY()-5);
 	                        triangleHead.setTranslateX(2);
 	                        
-	                      //rotatation du triangle pour qu'il soit aligner à la ligne
+	                        //rotatation du triangle pour qu'il soit aligner à la ligne
 	            	        angle = Math.atan2(curLine.getEndY()-curLine.getStartY(), curLine.getEndX()-curLine.getStartX());
 	            	        angle = Math.toDegrees(angle);
 	                        
@@ -252,8 +246,11 @@ public class FactoryController {
 	                        	curLine.setStyle("-fx-stroke: black;");
 	            	        	triangleHead.setStyle("-fx-stroke: black;");
 	            	        	
+	            	        	//un deuxieme triangle pour la fleche double
 	            	        	triangleBack = new Polygon(curLine.getStartX()-6, curLine.getStartY()+6,
 	            	        			curLine.getStartX(),curLine.getStartY(),curLine.getStartX()-6,curLine.getStartY()-6);
+	            	        	
+	            	        	//rotation inverse de la tete
 	            	        	triangleBack.setRotate(angle-180);
 	            	        	triangleBack.setTranslateX(2.5);
 	            	        	
@@ -324,150 +321,6 @@ public class FactoryController {
 		    gestionFlechesSurComposantes(can);
     	}
     } 
-
-    @FXML
-    void paneDrageDropped(DragEvent event) {  /*
-        System.out.println("onDragDropped"); 
-        //if there is a string data on dragboard, read it and use it 
-        Dragboard db = event.getDragboard();
-        boolean success = false;
-        if (db.hasString()) { 
-        	System.out.println("true");
-            success = true;
-        }
-        // let the source know whether the string was successfully 
-        // transferred and used 
-        event.setDropCompleted(success);
-        
-        event.consume();
-    	*/
-    }
-    
-    
-/*************** Fleche ***************/
-   /* 
-    
-    
-    
-    
-      
-    @FXML
-    void drawingMouseDragged(MouseEvent event) {
-    	if(state.Conneter() == true) {
-	    	//Code pour la ligne 
-	    	
-	    	if (!event.isPrimaryButtonDown()) {
-	            return;
-	        }
-	
-	        if (curLine == null) {
-	            return;
-	        }
-	
-	        curLine.setEndX(event.getX());
-	        curLine.setEndY(event.getY());
-	        
-	        //Sert pour faire augmenter la taille de la fenï¿½tre si la line est trop grande
-	        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
-	        double my = Math.max(curLine.getStartY(), curLine.getEndY());
-	
-	        if (mx > tableauTravail.getMinWidth()) {
-	        	tableauTravail.setMinWidth(mx);
-	        }
-	
-	        if (my > tableauTravail.getMinHeight()) {
-	        	tableauTravail.setMinHeight(my);
-	        }
-	        
-	        //Code pour la tete de la fleche
-	        
-	        //Rotation de la tete de la fleche en fonction de l'angle entre le fin et le debut de la ligne
-	        double angle;
-	        angle = Math.atan2(curLine.getEndY()-curLine.getStartY(), curLine.getEndX()-curLine.getStartX());
-	        angle = Math.toDegrees(angle);
-	        
-	        if(flecheStyle == "double") {
-	        	//Fleche double
-	        	triangleBack.setRotate(angle-180);
-	        	triangleBack.setTranslateX(2.5);
-	        	}
-	        
-	        //Translation de la tête de la fleche avec le mouvement de la souris
-	        triangleHead.setTranslateX(curLine.getEndX()-curLine.getStartX()+2);
-	        triangleHead.setTranslateY(curLine.getEndY()-curLine.getStartY());
-	        
-	        triangleHead.setRotate(angle);
-    	}
-        
-       
-    }
-    
-    
-    
-    
-    @FXML
-    void drawingMousePressed(MouseEvent event) {
-    	if(state.Conneter() == true) {
-	    	
-	    	if (!event.isPrimaryButtonDown()) {
-	            return;
-	        }
-	    	
-	    	// Instanciation de la fleche 
-	    
-	        curLine = new Line(
-	            event.getX(), event.getY(), 
-	            event.getX(), event.getY()
-	        );
-	        
-	        triangleHead = new Polygon(event.getX()-5, event.getY()+5,
-	        		event.getX(),event.getY(),event.getX()-5,event.getY()-5);
-	    
-	        arrow = new Group();
-	        
-	        // Couleur de fleche et style de fleche
-	        
-	        // Fleche double
-	        if(flecheStyle == "double") {
-	        	
-	        	curLine.setStyle("-fx-stroke: black;");
-	        	triangleHead.setStyle("-fx-stroke: black;");
-	        	
-	        	triangleBack = new Polygon(event.getX()-6, event.getY()+6,
-	            		event.getX(),event.getY(),event.getX()-6,event.getY()-6);
-	        	
-	        	arrow.getChildren().addAll(curLine, triangleHead, triangleBack);
-	        	
-	        	}
-	        
-	        // Fleche simple
-	        else if(flecheStyle == "simple") {
-	        	curLine.setStyle("-fx-stroke: red;");
-	        	triangleHead.setStyle("-fx-stroke: red;");
-	        	triangleHead.setFill(Color.RED);
-	        	
-	        	arrow.getChildren().addAll(curLine, triangleHead);
-	        	}
-
-	        // Affichage de la fleche dans le tableau de travail 
-	        
-	        tableauTravail.getChildren().add(arrow);
-
-    	}
-        
-    }
-    
-   
-
-    @FXML
-    void drawingMouseReleased(MouseEvent event) {
-    	if(state.Conneter() == true) {
-	    	curLine = null;
-	    	triangleHead = null;
-    	}
-    }
-    */
-
     
     @FXML
     private Button flecheDouble;

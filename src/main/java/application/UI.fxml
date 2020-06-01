@@ -79,7 +79,7 @@
             </Accordion>
          </left>
          <center>
-            <ScrollPane onDragDropped="#paneDrageDropped" prefHeight="302.0" prefWidth="347.0" BorderPane.alignment="CENTER">
+            <ScrollPane prefHeight="302.0" prefWidth="347.0" BorderPane.alignment="CENTER">
                <content>
                   <Pane fx:id="tableauTravail" prefHeight="200.0" prefWidth="200.0" />
                </content></ScrollPane>
