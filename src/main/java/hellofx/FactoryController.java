@@ -41,6 +41,8 @@ import state.State;
 import state.StateConnection;
 import state.StateDessin;
 import state.StateStart;
+
+import undoRedo.*;
 import enums.eshape;
 import formes.*;
 import javafx.scene.shape.*;
@@ -277,10 +279,8 @@ public class FactoryController {
                         arrow = new Group();                        
                         context.getState().setTypeFleche(curLine, triangleBack, triangleHead, arrow, centerX[0], centerY[0]);
                         
-                        //Affichage de la fleche dans le tableau de travail
-                        tableauTravail.getChildren().add(arrow);
-                        //on ajoute la ligne au Pane
-                        tableauTravail.getChildren().add(curLine); 
+                        //ajouter de la fleche dans le tableau de travail
+                        tableauTravail.getChildren().add(arrow);   
                          
                     }    
             	}                              
@@ -364,8 +364,7 @@ public class FactoryController {
     void boutonFlecheSimpleClicked(ActionEvent event) {
     	//flecheStyle = "simple";
         FlecheSimple fleche = new FlecheSimple();
-        fleche.assigner(context);
-    	
+        fleche.assigner(context);    	
     }
     
     @FXML
@@ -374,32 +373,26 @@ public class FactoryController {
     @FXML
     private MenuItem redo;
     
+    Redo reDo = new Redo();
+    Undo unDo = new Undo();
+    Broker broker = new Broker();
     
+    //fonction pour executer le redo ou undo
+    private void executionCommande(Broker broker)
+    { 
+    	broker.executeCommande(removedChildren, tableauTravail);
+    }
     
     @FXML
     void redoClicked(ActionEvent event) {
-    	if(removedChildren.size() == 0) {
-    		System.out.println("Erreur, il n'y a plus rien a redo");
-    	}
-    	else {
-    		tableauTravail.getChildren().add(removedChildren.get(removedChildren.size()-1));
-    		removedChildren.remove(removedChildren.size()-1);
-    	}
+		broker.prendreCommande(reDo);
+		executionCommande(broker);
     }
 
     @FXML
     void undoClicked(ActionEvent event) {
-    	
-    	if(tableauTravail.getChildren().size() == 0) {
-    		System.out.println("Erreur, il n'y a plus rien a undo");
-    	}
-    	else if(state.Conneter() == true) {
-    		removedChildren.add(tableauTravail.getChildren().remove(tableauTravail.getChildren().size()-1));
-    	}
-    	else if(state.DessinerForme() == true) {
-    		removedChildren.add(tableauTravail.getChildren().remove(tableauTravail.getChildren().size()-1));	
-    	}
-    	
+		broker.prendreCommande(unDo);
+		executionCommande(broker);	    	
     }
     
     @FXML

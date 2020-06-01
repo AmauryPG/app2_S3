@@ -6,7 +6,7 @@ public class contextFleche {
 	
 	public contextFleche()
 	{
-		state = null;
+		state = new FlecheSimple();
 	}
 	
 	public void setState(stateFleche state)
