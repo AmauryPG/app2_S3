@@ -20,7 +20,7 @@ public class LaboFactory extends Application {
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
     } 
-
+ 
 
     public static void main(String[] args) {
         launch(args);

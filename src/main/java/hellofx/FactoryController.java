@@ -150,29 +150,184 @@ public class FactoryController {
         assert menuMore != null : "fx:id=\"menuMore\" was not injected: check your FXML file 'UI.fxml'.";
 
     } 
-
+    
+    private ArrayList<Canvas> listFormes = new ArrayList<Canvas>();
+ 
+    private int nbrAnchor = 0;
+    private double [] anchorX = {0,0,0};
+    private double [] anchorY = {0,0,0}; 
+    private double x;
+    private double a;
+    private Canvas tempCanvas;
+    private Line curLine;
+    
     @FXML
     void mouseClickedRectangle(MouseEvent event) {
     	//on ajoute un canvas dans le pane
-    	tableauTravail.getChildren().add(ShapeFactory.createShape(eshape.RECTANGLE));
+    	Canvas can = ShapeFactory.createShape(eshape.RECTANGLE);
+    	tableauTravail.getChildren().add(can);
+    	listFormes.add(can);
+    	
+    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override 
+            public void handle(javafx.scene.input.MouseEvent e) {    
+               anchorX[nbrAnchor] = can.getTranslateY();
+               anchorY[nbrAnchor] = can.getTranslateX();
+                
+               System.out.println(can.getTranslateX() + " " + can.getTranslateY());
+               
+               System.out.println(nbrAnchor); 
+               
+               if(nbrAnchor < 1)
+               {
+            	   nbrAnchor++; 
+            	   tempCanvas = can;
+               }
+               else
+               {
+            	   nbrAnchor = 0;  
+            	   
+            	   double deltaX, deltaY, distance;
+            	   
+            	   //on fait les math pour le mettre sur le rebord  
+            	   
+            	   
+            	   //on cree la nouvelle ligne
+                   curLine = new Line(
+                		   tempCanvas.getTranslateX(), tempCanvas.getTranslateY(),
+                		   can.getTranslateX(), can.getTranslateY()
+                       ); 
+                       
+                       tableauTravail.getChildren().add(curLine);
+               }                   
+            } 
+         });  
     } 
     
     @FXML
-    void mouseClickedCarre(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	tableauTravail.getChildren().add(ShapeFactory.createShape(eshape.CARRE));
+    void mouseClickedCarre(MouseEvent event) {//on ajoute un canvas dans le pane
+    	Canvas can = ShapeFactory.createShape(eshape.CARRE);
+    	tableauTravail.getChildren().add(can);
+    	listFormes.add(can);
+    	
+    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override 
+            public void handle(javafx.scene.input.MouseEvent e) {    
+               anchorX[nbrAnchor] = can.getTranslateY();
+               anchorY[nbrAnchor] = can.getTranslateX();
+                
+               System.out.println(can.getTranslateX() + " " + can.getTranslateY());
+               
+               System.out.println(nbrAnchor); 
+               
+               if(nbrAnchor < 1)
+               {
+            	   nbrAnchor++; 
+            	   tempCanvas = can;
+               }
+               else
+               {
+            	   nbrAnchor = 0;  
+            	   
+            	   double deltaX, deltaY, distance;
+            	   
+            	   //on fait les math pour le mettre sur le rebord  
+            	   
+            	   
+            	   //on cree la nouvelle ligne
+                   curLine = new Line(
+                		   tempCanvas.getTranslateX(), tempCanvas.getTranslateY(),
+                		   can.getTranslateX(), can.getTranslateY()
+                       ); 
+                       
+                       tableauTravail.getChildren().add(curLine);
+               }                   
+            } 
+         }); 
     }
     
     @FXML
-    void mouseClickedElipse(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	tableauTravail.getChildren().add(ShapeFactory.createShape(eshape.ELIPSE));
+    void mouseClickedElipse(MouseEvent event) {//on ajoute un canvas dans le pane
+    	Canvas can = ShapeFactory.createShape(eshape.ELIPSE);
+    	tableauTravail.getChildren().add(can);
+    	listFormes.add(can);
+    	
+    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override 
+            public void handle(javafx.scene.input.MouseEvent e) {    
+               anchorX[nbrAnchor] = can.getTranslateY();
+               anchorY[nbrAnchor] = can.getTranslateX();
+                
+               System.out.println(can.getTranslateX() + " " + can.getTranslateY());
+               
+               System.out.println(nbrAnchor); 
+               
+               if(nbrAnchor < 1)
+               {
+            	   nbrAnchor++; 
+            	   tempCanvas = can;
+               }
+               else
+               {
+            	   nbrAnchor = 0;  
+            	   
+            	   double deltaX, deltaY, distance;
+            	   
+            	   //on fait les math pour le mettre sur le rebord  
+            	   
+            	   
+            	   //on cree la nouvelle ligne
+                   curLine = new Line(
+                		   tempCanvas.getTranslateX(), tempCanvas.getTranslateY(),
+                		   can.getTranslateX(), can.getTranslateY()
+                       ); 
+                       
+                       tableauTravail.getChildren().add(curLine);
+               }                   
+            } 
+         }); 
     }  
 
     @FXML
-    void mouseClickedCercle(MouseEvent event) {
-    	//on ajoute un canvas dans le pane
-    	tableauTravail.getChildren().add(ShapeFactory.createShape(eshape.CERCLE));
+    void mouseClickedCercle(MouseEvent event) {//on ajoute un canvas dans le pane
+    	Canvas can = ShapeFactory.createShape(eshape.CERCLE);
+    	tableauTravail.getChildren().add(can);
+    	listFormes.add(can);
+    	
+    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override 
+            public void handle(javafx.scene.input.MouseEvent e) {    
+               anchorX[nbrAnchor] = can.getTranslateY();
+               anchorY[nbrAnchor] = can.getTranslateX();
+                
+               System.out.println(can.getTranslateX() + " " + can.getTranslateY());
+               
+               System.out.println(nbrAnchor); 
+               
+               if(nbrAnchor < 1)
+               {
+            	   nbrAnchor++; 
+            	   tempCanvas = can;
+               }
+               else
+               {
+            	   nbrAnchor = 0;  
+            	   
+            	   double deltaX, deltaY, distance;
+            	   
+            	   //on fait les math pour le mettre sur le rebord  
+            	   
+            	   
+            	   //on cree la nouvelle ligne
+                   curLine = new Line(
+                		   tempCanvas.getTranslateX(), tempCanvas.getTranslateY(),
+                		   can.getTranslateX(), can.getTranslateY()
+                       ); 
+                       
+                       tableauTravail.getChildren().add(curLine);
+               }                   
+            } 
+         }); 
     } 
 
     @FXML

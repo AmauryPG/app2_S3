@@ -10,13 +10,14 @@ import javafx.scene.input.MouseEvent;
 public class ShapeFactory {
 
 	/* Necessaire pour methode des canevas */
-	static double orgSceneX;
-	static double orgSceneY;
-	static double orgTranslateX, orgTranslateY;
+	static double SceneX;
+	static double SceneY;
+	static double TranslateX, TranslateY; 
+	static private Canvas can;
 
 	public static Canvas createShape(eshape shape)  {
 
-	 	Canvas can = new nRectangle();
+	 	can = new nRectangle();
 		switch (shape) { 
 		case RECTANGLE:
 			can = new nRectangle();
@@ -37,6 +38,7 @@ public class ShapeFactory {
 		can.setOnMousePressed(canvasOnMousePressed);
 		can.setOnMouseDragged(canvasOnMouseDragged);
 		can.setOnDragDetected(canvasOnDragDetected); 
+		can.setOnMouseClicked(canvasOnMouseClicked);
 		
 		return can;
 	}
@@ -49,31 +51,39 @@ public class ShapeFactory {
 	static EventHandler<MouseEvent> canvasOnMousePressed = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent mouseEvent) {
-			 orgSceneX = mouseEvent.getSceneX();
-			orgSceneY = mouseEvent.getSceneY();
-			orgTranslateX = ((Canvas) (mouseEvent.getSource())).getTranslateX();
-			orgTranslateY = ((Canvas) (mouseEvent.getSource())).getTranslateY();
+			SceneX = mouseEvent.getSceneX();
+			SceneY = mouseEvent.getSceneY();
+			TranslateX = ((Canvas) (mouseEvent.getSource())).getTranslateX();
+			TranslateY = ((Canvas) (mouseEvent.getSource())).getTranslateY();
 		}
 	};
 
 	static EventHandler<MouseEvent> canvasOnMouseDragged = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent mouseEvent) {
-			double offsetX = mouseEvent.getSceneX() - orgSceneX;
-			double offsetY = mouseEvent.getSceneY() - orgSceneY;
-			double newTranslateX = orgTranslateX + offsetX;
-			double newTranslateY = orgTranslateY + offsetY;
+			double offsetX = mouseEvent.getSceneX() - SceneX;
+			double offsetY = mouseEvent.getSceneY() - SceneY;
+			double newTranslateX = TranslateX + offsetX;
+			double newTranslateY = TranslateY + offsetY;
 
 			((Canvas) (mouseEvent.getSource())).setTranslateX(newTranslateX); // transform the object
-			((Canvas) (mouseEvent.getSource())).setTranslateY(newTranslateY);
+			((Canvas) (mouseEvent.getSource())).setTranslateY(newTranslateY); 
 		}
 	};
 
+	static EventHandler<MouseEvent> canvasOnMouseClicked = new EventHandler<MouseEvent>() {
+		
+		@Override
+	    public void handle(MouseEvent event) {  
+	        System.out.println("clicked");   
+ 
+	    }
+	};
+	
 	static EventHandler<MouseEvent> canvasOnDragDetected = new EventHandler<MouseEvent>() {
 		
 		@Override
-	    public void handle(MouseEvent event) { 
-	    	  /* drag was detected, start drag-and-drop gesture*/
+	    public void handle(MouseEvent event) {  
 	        System.out.println("onDragDetected"); 
 	        event.consume();
 	    }
