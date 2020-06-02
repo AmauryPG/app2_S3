@@ -84,9 +84,9 @@ public class OperationOuvrir implements StrategySauvegarde {
 				{
 					//pour les composantes 				    
 				    Canvas can = ShapeFactory.createShape(eshape.valueOf(composante[0].toUpperCase())); 
-				    can.setLayoutX(Double.valueOf(composante[1]));
-				    can.setLayoutY(Double.valueOf(composante[2])); 
-				    
+				    can.setTranslateX(Double.valueOf(composante[1]));
+				    can.setTranslateY(Double.valueOf(composante[2])); 
+				     
 				    tableauTravail.getChildren().add(can);
  
 				    listFormes.add(can); 	
