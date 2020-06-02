@@ -16,14 +16,14 @@ public class LaboFactory extends Application {
          
         rootLayout = (BorderPane)loader.load();
 
-        primaryStage.setTitle("Prototype 2");
+        primaryStage.setTitle("Prototype 3");
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
     } 
  
 
     public static void main(String[] args) {
-        launch(args); 
+       launch(args); 
     }    
 }
  

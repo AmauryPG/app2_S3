@@ -1,7 +1,5 @@
 package undoRedo;
-
-import java.util.ArrayList; 
-import javafx.scene.canvas.Canvas;
+ 
 import javafx.scene.layout.Pane;
 
 import java.util.Vector;

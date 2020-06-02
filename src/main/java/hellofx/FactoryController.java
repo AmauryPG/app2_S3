@@ -37,6 +37,7 @@ import enums.eshape;
 import formes.ShapeFactory;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Rectangle;
+import sauvegarde.*; 
 import state.State;
 import state.StateConnection;
 import state.StateDessin;
@@ -207,81 +208,12 @@ public class FactoryController {
                  	   
                  	   //on cree la nouvelle ligne 
                  	   
-                 	   //premier forme selectionner
-                 	   double [] tempCenterX = {tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, 0, 0};
-                 	   double [] tempCenterY = {tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 0, 0};
-                 	   
-                 	   //seconde forme selectionner
-                 	   double [] centerX = {can.getTranslateX() + can.getWidth()/2, 0, 0};
-                 	   double [] centerY = {can.getTranslateY() + can.getHeight()/2, 0, 0};
-                 	   
-                 	   //pour l'axe des X
-                 	   if(tempCenterX[0] < centerX[0])
-                 	   {
-                 		  tempCenterX[1] = tempCenterX[0] + tempCanvas.getWidth()/2;
-                 		  centerX[1] = centerX[0] - can.getWidth()/2;
-                  		  tempCenterY[1] = tempCenterY[0];
-                  		  centerY[1] = centerY[0];
-                 	   }
-                 	   else
-                 	   {
-                 		  tempCenterX[1] = tempCenterX[0] - tempCanvas.getWidth()/2;
-                 		  centerX[1] = centerX[0] + can.getWidth()/2;
-                  		  tempCenterY[1] = tempCenterY[0];
-                  		  centerY[1] = centerY[0];
-                 	   }
-                 	    
-                 	   //pour l'axe des Y
-                 	   if(tempCenterY[0] < centerY[0])
-                 	   {
-                 		  tempCenterY[2] = tempCenterY[0] + tempCanvas.getHeight()/2;
-                 		  centerY[2] = centerY[0] - can.getHeight()/2;
-                  		  tempCenterX[2] = tempCenterX[0];
-                  		  centerX[2] = centerX[0];
-                 	   }
-                 	   else
-                 	   {
-                 		   tempCenterY[2] = tempCenterY[0] - tempCanvas.getHeight()/2;
-                 			centerY[2] = centerY[0] + can.getHeight()/2;
-                 			tempCenterX[2] = tempCenterX[0];
-                		   	centerX[2] = centerX[0];
-                 	   }
-                 	   
-                 	   //on fait pythagore entre les pointes les plus proches
-                 	   //des deux formes
-					 	double ligne1 = Math.sqrt(Math.pow((tempCenterY[1] - centerY[1]), 2) + Math.pow((tempCenterX[1] - centerX[1]), 2));
-					 	double ligne2 = Math.sqrt(Math.pow((tempCenterY[2] - centerY[2]), 2) + Math.pow((tempCenterX[2] - centerX[2]), 2)); 
-					 	 
-					 	//on choisit quel ligne est la plus courte 
-					 	//de deux ligne construit auparavant
-					 	 if(ligne1 < ligne2)
-					 	 {
-					 		centerX[0] = centerX[1];
-					 		centerY[0] = centerY[1];
-					 		tempCenterY[0] = tempCenterY[1];
-					 		tempCenterX[0] = tempCenterX[1];
-					 	 }
-					 	 else
-					 	 {
-					 		centerX[0] = centerX[2];
-					 		centerY[0] = centerY[2];
-					 		tempCenterY[0] = tempCenterY[2];
-					 		tempCenterX[0] = tempCenterX[2];
-					 	 }
-                 	   
-					 	 //on dessine la ligne choisit auparavant
-                        curLine = new Line(
-                     		   tempCenterX[0], tempCenterY[0],
-                     		   centerX[0], centerY[0]
-                            );  
-                                                
-                        //Couleur de fleche et style de fleche
-                        arrow = new Group();                        
-                        context.getState().setTypeFleche(curLine, triangleBack, triangleHead, arrow, centerX[0], centerY[0]);
-                        
-                        //ajouter de la fleche dans le tableau de travail
-                        tableauTravail.getChildren().add(arrow);   
-                         
+
+                 	   CreationFleche.creation(tableauTravail, context, arrow, triangleHead, triangleBack, curLine,
+                  			  tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 
+                  			  can.getTranslateX() + can.getWidth()/2, can.getTranslateY() + can.getHeight()/2, 
+                  			  tempCanvas.getHeight()/2, tempCanvas.getWidth()/2,
+                  			  can.getHeight()/2, can.getWidth()/2);                         
                     }    
             	}                              
             } 
@@ -354,8 +286,7 @@ public class FactoryController {
         FlecheDouble fleche = new FlecheDouble();
         fleche.assigner(context);
     	
-    }
-    
+    }    
 
     @FXML
     private Button flecheSimple;
@@ -367,6 +298,7 @@ public class FactoryController {
         fleche.assigner(context);    	
     }
     
+    //section pour le redo et undo
     @FXML
     private MenuItem undo;
     	
@@ -392,9 +324,10 @@ public class FactoryController {
     @FXML
     void undoClicked(ActionEvent event) {
 		broker.prendreCommande(unDo);
-		executionCommande(broker);	    	
+		executionCommande(broker);	  
     }
     
+    //section pour l'etat de la fenetre
     @FXML
     private Button boutonConnect;
     
@@ -410,6 +343,23 @@ public class FactoryController {
     void boutonDessinClicked(ActionEvent event) {
     	state = stateDessin;
     }
- 
+
+    //section pour sauvegarder et ouvrir des fichiers
+    private ContexteSauvegarde contexte;
+    
+    @FXML
+    void sauvegarderClicked(ActionEvent event) {
+    	contexte = new ContexteSauvegarde(new OperationSauvegarder());
+    	contexte.execute(tableauTravail, listFormes);
+    	System.out.println("sauve");
+    }
+
+    @FXML
+    void ouvrirClicked(ActionEvent event) {
+    	contexte = new ContexteSauvegarde(new OperationOuvrir());
+    	
+    	contexte.execute(tableauTravail, listFormes);
+    	System.out.println("ouvrir");
+    }
     
 }
