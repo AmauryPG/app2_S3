@@ -19,7 +19,7 @@ public class FlecheSimple implements stateFleche {
 	} 
 
 	public void setTypeFleche(Line curLine, Polygon triangleBack, Polygon triangleHead, Group arrow, double xdebut, double ydebut)
-	{ 
+	{  
         //code pour cree la tete de la fleche
         triangleHead = new Polygon(xdebut - 5, ydebut + 5,
         						   xdebut, ydebut, xdebut - 5, ydebut - 5);

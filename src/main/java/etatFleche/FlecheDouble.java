@@ -18,7 +18,7 @@ public class FlecheDouble implements stateFleche {
 	} 
 
 	public void setTypeFleche(Line curLine, Polygon triangleBack, Polygon triangleHead, Group arrow, double xDebut, double yDebut)
-	{
+	{ 
         double xFin = curLine.getStartX();
         double yFin = curLine.getStartY();
         

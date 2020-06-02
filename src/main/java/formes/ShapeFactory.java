@@ -13,8 +13,7 @@ public class ShapeFactory {
 	static double TranslateX, TranslateY; 
 	static private Canvas can;
 
-	public static Canvas createShape(eshape shape)  {
-
+	public static Canvas createShape(eshape shape)  { 
 	 	can = new nRectangle();
 		switch (shape) { 
 		case RECTANGLE:

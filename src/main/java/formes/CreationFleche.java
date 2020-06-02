@@ -10,6 +10,24 @@ import javafx.scene.shape.Polygon;
 public class CreationFleche {
 	
 	public static void creation(Pane tableauTravail, contextFleche context, 
+			Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine,
+			double forme1X, double forme1Y, double forme2X, double forme2Y)
+	{
+	 	 //on dessine la ligne choisit auparavant
+        curLine = new Line(
+        		forme1X, forme1Y,
+        		forme2X, forme2Y
+            );  
+                                
+        //Couleur de fleche et style de fleche
+        arrow = new Group();                        
+        context.getState().setTypeFleche(curLine, triangleBack, triangleHead, arrow, forme2X, forme2Y);
+        
+        //ajouter de la fleche dans le tableau de travail
+        tableauTravail.getChildren().add(arrow);   
+	}
+	
+	public static void creation(Pane tableauTravail, contextFleche context, 
 			Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine, 
 			double forme1X, double forme1Y, double forme2X, double forme2Y, 
 			double forme1MoitierHauteur, double forme1MoitierLargueur, 
@@ -81,7 +99,7 @@ public class CreationFleche {
          curLine = new Line(
       		   tempCenterX[0], tempCenterY[0],
       		   centerX[0], centerY[0]
-             );  
+             );   
                                  
          //Couleur de fleche et style de fleche
          arrow = new Group();                        

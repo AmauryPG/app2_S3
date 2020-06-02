@@ -173,10 +173,6 @@ public class FactoryController {
     State state = stateStart;
     private ArrayList<Canvas> listFormes = new ArrayList<Canvas>();
  
-    private int nbrAnchor = 0;
-    private double [] anchorX = {0,0,0};
-    private double [] anchorY = {0,0,0};  
-    private Canvas tempCanvas;
     private Line curLine;
 
     private Polygon triangleHead;
@@ -185,43 +181,7 @@ public class FactoryController {
     
     Vector<Node> removedChildren = new Vector<Node>();
     private contextFleche context = new contextFleche(); 
-    
-    private Canvas gestionFlechesSurComposantes(Canvas can)
-    {
-    	//on fait la gestion des fleches
-    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
-            @Override 
-            public void handle(javafx.scene.input.MouseEvent e) {    
-            	if(e.getClickCount() > 1)
-            	{
-            		anchorX[nbrAnchor] = can.getTranslateY();
-                    anchorY[nbrAnchor] = can.getTranslateX();  
-                    
-                    if(nbrAnchor < 1)
-                    {
-                 	   nbrAnchor++; 
-                 	   tempCanvas = can;
-                    }
-                    else
-                    {
-                 	   nbrAnchor = 0;                   	   
-                 	   
-                 	   //on cree la nouvelle ligne 
-                 	   
-
-                 	   CreationFleche.creation(tableauTravail, context, arrow, triangleHead, triangleBack, curLine,
-                  			  tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 
-                  			  can.getTranslateX() + can.getWidth()/2, can.getTranslateY() + can.getHeight()/2, 
-                  			  tempCanvas.getHeight()/2, tempCanvas.getWidth()/2,
-                  			  can.getHeight()/2, can.getWidth()/2);                         
-                    }    
-            	}                              
-            } 
-         });  
-    	return can;
-    }  
-
-    
+       
     
     @FXML
     void mouseClickedElipse(MouseEvent event) {
@@ -232,7 +192,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements
-		    gestionFlechesSurComposantes(can);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     	
     }  
@@ -246,7 +206,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    gestionFlechesSurComposantes(can);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
     
@@ -259,7 +219,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements
-		    gestionFlechesSurComposantes(can);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     	
     }
@@ -273,7 +233,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements
-		    gestionFlechesSurComposantes(can);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     } 
     
@@ -356,7 +316,7 @@ public class FactoryController {
 
     @FXML
     void ouvrirClicked(ActionEvent event) {
-    	contexte = new ContexteSauvegarde(new OperationOuvrir());
+    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine));
     	
     	contexte.execute(tableauTravail, listFormes);
     	System.out.println("ouvrir");
