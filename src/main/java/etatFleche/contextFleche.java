@@ -2,19 +2,19 @@ package etatFleche;
 
 public class contextFleche {
 
-	private stateFleche state;
+	private StateFleche state;
 	
 	public contextFleche()
 	{
 		state = new FlecheSimple();
 	}
 	
-	public void setState(stateFleche state)
+	public void setState(StateFleche state)
 	{
 		this.state = state;
 	}
 	
-	public stateFleche getState()
+	public StateFleche getState()
 	{
 		return state;
 	}

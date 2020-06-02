@@ -181,7 +181,10 @@ public class FactoryController {
     
     Vector<Node> removedChildren = new Vector<Node>();
     private contextFleche context = new contextFleche(); 
-       
+      
+    public State getState() {
+    	return state;
+    }
     
     @FXML
     void mouseClickedElipse(MouseEvent event) {
@@ -192,7 +195,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     	
     }  
@@ -206,7 +209,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
     
@@ -219,7 +222,7 @@ public class FactoryController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     	
     }
@@ -228,13 +231,14 @@ public class FactoryController {
     void mouseClickedCercle(MouseEvent event) {
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.CERCLE); 
+    		Canvas can = ShapeFactory.createShape(eshape.CERCLE); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
-		    	
-		    //la fonction controle les connection entre les elements
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    
+		    //la fonction controle les connections entre les elements
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
+    
     } 
     
     @FXML
@@ -242,9 +246,8 @@ public class FactoryController {
     
     @FXML
     void boutonFlecheDoubleClicked(ActionEvent event) {
-    	//flecheStyle = "double";
-        FlecheDouble fleche = new FlecheDouble();
-        fleche.assigner(context);
+	        FlecheDouble fleche = new FlecheDouble();
+	        fleche.assigner(context);
     	
     }    
 
@@ -253,9 +256,8 @@ public class FactoryController {
     
     @FXML
     void boutonFlecheSimpleClicked(ActionEvent event) {
-    	//flecheStyle = "simple";
-        FlecheSimple fleche = new FlecheSimple();
-        fleche.assigner(context);    	
+	        FlecheSimple fleche = new FlecheSimple();
+	        fleche.assigner(context); 
     }
     
     //section pour le redo et undo
@@ -316,7 +318,7 @@ public class FactoryController {
 
     @FXML
     void ouvrirClicked(ActionEvent event) {
-    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine));
+    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine, this));
     	
     	contexte.execute(tableauTravail, listFormes);
     	System.out.println("ouvrir");
