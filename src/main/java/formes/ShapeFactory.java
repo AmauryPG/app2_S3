@@ -19,9 +19,9 @@ public class ShapeFactory {
 		case POWER_SOURCE:
 			can = new nPowerSource();
 		break; 
-		case ACCUMULATION_ELEMENT:
+		case ACCUMULATION_ELEMENT_DROIT:
 			can = new nAccumulationElement();
-			break; 
+			break;  
 		case CONVERSION_ELEMENT:
 			can = new nConversionElement();
 			break; 
@@ -31,8 +31,11 @@ public class ShapeFactory {
 		case SWITCHING_ELEMENT:
 			can = new nSwitchingElement();
 			break; 
-		case AMPLIFICATION_ELEMENT:
-			can = new nAmplificationElement();
+		case AMPLIFICATION_ELEMENT_GAUCHE:
+			can = new nAmplificationElementGauche();
+			break; 
+		case AMPLIFICATION_ELEMENT_DROIT:
+			can = new nAmplificationElementDroit();
 			break; 
 		case INVERSION_CONVERSION_ELEMENT:
 			can = new nInversionConversionElement();
@@ -46,10 +49,12 @@ public class ShapeFactory {
 		case INVERSION_SWITCHING_ELEMENT:
 			can = new nInversionSwitchingElement();
 			break;
-		case INVERSION_AMPLIFICATION_ELEMENT:
-			break;		
-		case CONTROL_STRATEGY:
-			break;			
+		case INVERSION_AMPLIFICATION_ELEMENT_GAUCHE:
+			can = new nInversionAmplificationElementGauche();
+			break;	
+		case INVERSION_AMPLIFICATION_ELEMENT_DROIT:
+			can = new nInversionAmplificationElementDroit();
+			break;		 	
 		default:
 			System.out.println("ERREUR : CREATION DE FORMES");
 			break;

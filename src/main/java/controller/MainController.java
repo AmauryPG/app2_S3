@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -85,10 +86,7 @@ public class MainController {
     
     //zone de travail principal
     @FXML
-    private Pane tableauTravail;     
-
-    @FXML
-    private Circle formeCercle;     
+    private Pane tableauTravail;      
      
     @FXML
     private Button boutonAjouter;
@@ -185,8 +183,7 @@ public class MainController {
    
     @FXML
     void initialize() {
-        assert toolBarEditor != null : "fx:id=\"toolBarEditor\" was not injected: check your FXML file 'UI.fxml'.";
-        assert formeCercle != null : "fx:id=\"formeCercle\" was not injected: check your FXML file 'UI.fxml'.";
+        assert toolBarEditor != null : "fx:id=\"toolBarEditor\" was not injected: check your FXML file 'UI.fxml'."; 
         assert labelMode != null : "fx:id=\"labelMode\" was not injected: check your FXML file 'UI.fxml'.";
         assert boutonAjouter != null : "fx:id=\"boutonAjouter\" was not injected: check your FXML file 'UI.fxml'.";
         assert titledPaneInversion != null : "fx:id=\"titledPaneInversion\" was not injected: check your FXML file 'UI.fxml'.";
@@ -205,31 +202,249 @@ public class MainController {
     	System.out.println(event.getSource().toString()); 
     }
     
+    
     @FXML
-    void mouseClickedElipse(MouseEvent event) {
+    void mouseClickedAccumulation(MouseEvent event) {
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.POWER_SOURCE); 
-		    tableauTravail.getChildren().add(can);
-		    listFormes.add(can); 
-		    	
-		    //la fonction controle les connection entre les elements
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
-    	}
-    	
-    }  
-
-    @FXML
-    void mouseClickedCarre(MouseEvent event) {
-    	if(state.DessinerForme() == true) {
-		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_SWITCHING_ELEMENT); 
+		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_GAUCHE); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
 		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedAmplification1(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_GAUCHE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedAmplification2(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_DROIT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedConversionCircle(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedConversionSquare(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedCouplingCircles(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedCouplingSquares(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimAccumulation(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimAmplification1(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_GAUCHE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimAmplification2(MouseEvent event) {
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_DROIT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCircle(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCouplingCircles(ContextMenuEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCouplingSquare(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimSource(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimSwitching(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvAccumulation(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvAmplification1(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvAmplification2(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvConvertion(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvCoupling(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvSwitching(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedSource(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedStrategy(MouseEvent event) {
+
+ 
+
+    }
+
+ 
+
+    @FXML
+    void mouseClickedSwitching(MouseEvent event) {
+
+ 
+
     }
     
     @FXML

@@ -11,8 +11,8 @@ public class nInversionSwitchingElement extends Canvas {
     static double cote = 40;  
 
     public nInversionSwitchingElement() {
-        setWidth(5 * cote + 4.0f);
-        setHeight(5 * cote + 4.0f);
+        setWidth(3 * cote + 4.0f);
+        setHeight(3 * cote + 4.0f);
         drawEnergySource(super.getGraphicsContext2D());
     }
     public static void drawEnergySource(GraphicsContext gc) {
@@ -20,9 +20,17 @@ public class nInversionSwitchingElement extends Canvas {
         gc.setStroke(couleurStroke); 
   
 
+        //parallelogramme 1
+        CreationParallelogramme.creationFill(gc, cote, cote + cote/3 - 3, 0);         
+        CreationParallelogramme.creationStroke(gc, cote, cote + cote/3 - 3, 0); 
+        
         //parallelogramme 2
         CreationParallelogramme.creationFill(gc, cote, cote, cote);         
-        CreationParallelogramme.creationStroke(gc, cote, cote, cote);         
+        CreationParallelogramme.creationStroke(gc, cote, cote, cote);   
+
+        //parallelogramme 1
+        CreationParallelogramme.creationFill(gc, cote, cote * 2/3 + 3, 2*cote);         
+        CreationParallelogramme.creationStroke(gc, cote, cote * 2/3 + 3, 2*cote); 
 
         //parallelogramme centrale
         CreationParallelogramme.creationFill(gc, cote, 0, cote);         

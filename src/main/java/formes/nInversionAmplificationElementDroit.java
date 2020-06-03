@@ -4,13 +4,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class nInversionAccumulationElement extends Canvas {
+public class nInversionAmplificationElementDroit extends Canvas {
 	static Color couleurFill = Color.rgb(135,206,235);
     static Color couleurStroke = Color.rgb(0,0,255); 
 
     static double cote = 40;  
 
-    public nInversionAccumulationElement() {
+    public nInversionAmplificationElementDroit() {
         setWidth(1.25 * cote + 4.0f);
         setHeight(1.25 * cote + 4.0f);
         drawEnergySource(super.getGraphicsContext2D());
@@ -21,7 +21,8 @@ public class nInversionAccumulationElement extends Canvas {
 
         CreationParallelogramme.creationFill(gc, cote, 0, 0);
         CreationParallelogramme.creationStroke(gc, cote, 0, 0); 
-        
-        gc.strokeLine(cote * 0.25 + 2, 2, cote, cote);
+
+        gc.strokeLine(cote * 5/4 + 3, 3, 8, cote/2);
+        gc.strokeLine(cote + 3, cote + 3, 8, cote/2);
     }
 }
