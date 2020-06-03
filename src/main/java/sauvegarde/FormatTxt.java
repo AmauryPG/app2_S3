@@ -54,11 +54,10 @@ public class FormatTxt implements StrategySauvegarde {
     {
     	try {
 		  JFileChooser chooser = new JFileChooser(".");
+		  chooser.setDialogTitle("Sauvegarder (format .txt)");
 
 	       int returnVal = chooser.showOpenDialog(null);
-	       if(returnVal == JFileChooser.APPROVE_OPTION) {
-	           System.out.println("You chose to open this file: " +
-	              chooser.getSelectedFile().toString());
+
 	           String nameFile = chooser.getSelectedFile().toString();
 	           String extensionFile = nameFile.substring(nameFile.lastIndexOf(".") + 1,nameFile.length());
 	           
@@ -68,7 +67,7 @@ public class FormatTxt implements StrategySauvegarde {
 	              { 
 	            	  System.out.println(nameFile);
 	            	  System.out.println(chooser.getSelectedFile());
-	            	  Writer ecrire = new OutputStreamWriter(new FileOutputStream("files/texte.txt"), java.nio.charset.StandardCharsets.UTF_8);
+	            	  Writer ecrire = new OutputStreamWriter(new FileOutputStream(nameFile), java.nio.charset.StandardCharsets.UTF_8);
 
 		      			for(int i = 0; i < tableauTravail.getChildren().size(); i++)
 		      			{
@@ -105,10 +104,9 @@ public class FormatTxt implements StrategySauvegarde {
 		      		ecrire.close();  
 	              }
 	           }
-	              catch (FileNotFoundException e) {
-	                 JOptionPane.showMessageDialog(null, "File not found.");
-	              } 
-	        }			
+              catch (FileNotFoundException e) {
+  					e.printStackTrace();
+              }  			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,6 +117,7 @@ public class FormatTxt implements StrategySauvegarde {
 	{
 		try {
 		  JFileChooser chooser = new JFileChooser(".");
+		  chooser.setDialogTitle("Ouvrir (format .txt)");
 		
 		   int returnVal = chooser.showOpenDialog(null);
 		   if(returnVal == JFileChooser.APPROVE_OPTION) {

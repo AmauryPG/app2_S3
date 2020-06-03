@@ -47,11 +47,11 @@ public class FormatFxml implements StrategySauvegarde {
 	    {
 	    	try {
 			  JFileChooser chooser = new JFileChooser(".");
+			  chooser.setDialogTitle("Sauvegarder (format .xfml)");
 
 		       int returnVal = chooser.showOpenDialog(null);
 		       if(returnVal == JFileChooser.APPROVE_OPTION) {
-		           System.out.println("You chose to open this file: " +
-		              chooser.getSelectedFile().toString());
+
 		           String nameFile = chooser.getSelectedFile().toString();
 		           String extensionFile = nameFile.substring(nameFile.lastIndexOf(".") + 1,nameFile.length());
 		           
@@ -59,7 +59,7 @@ public class FormatFxml implements StrategySauvegarde {
 		           try { 
 		              if(extensionFile.equals("fxml"))
 		              {  
-		            	  Writer ecrire = new OutputStreamWriter(new FileOutputStream("files/texte.fxml"), java.nio.charset.StandardCharsets.UTF_8);
+		            	  Writer ecrire = new OutputStreamWriter(new FileOutputStream(nameFile), java.nio.charset.StandardCharsets.UTF_8);
 
 		      			for(int i =0; i < tableauTravail.getChildren().size(); i++)
 		      			{
@@ -98,7 +98,7 @@ public class FormatFxml implements StrategySauvegarde {
 		              }
 		           }
 	              catch (FileNotFoundException e) {
-	                 JOptionPane.showMessageDialog(null, "File not found.");
+	  					e.printStackTrace();
 	              } 
 		        }			
 			} catch (IOException e) {
@@ -111,6 +111,7 @@ public class FormatFxml implements StrategySauvegarde {
 		{
 			try {
 			  JFileChooser chooser = new JFileChooser(".");
+			  chooser.setDialogTitle("Ouvrir (format .xfml)");
 			
 			   int returnVal = chooser.showOpenDialog(null);
 			   if(returnVal == JFileChooser.APPROVE_OPTION) {
