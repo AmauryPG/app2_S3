@@ -22,11 +22,17 @@ public class ShapeFactory {
 		case ACCUMULATION_ELEMENT_DROIT:
 			can = new nAccumulationElement();
 			break;  
-		case CONVERSION_ELEMENT:
-			can = new nConversionElement();
+		case CONVERSION_ELEMENT_SQUARE:
+			can = new nConversionElementSquare();
 			break; 
-		case COUPLING_ELEMENT:
-			can = new nCouplingElement();			
+		case CONVERSION_ELEMENT_CIRCLE:
+			can = new nConversionElementCircle();
+			break; 
+		case COUPLING_ELEMENT_SQUARE:
+			can = new nCouplingElementSquare();			
+		break; 
+		case COUPLING_ELEMENT_CIRCLE:
+			can = new nCouplingElementCircle();			
 		break; 
 		case SWITCHING_ELEMENT:
 			can = new nSwitchingElement();
@@ -54,7 +60,7 @@ public class ShapeFactory {
 			break;	
 		case INVERSION_AMPLIFICATION_ELEMENT_DROIT:
 			can = new nInversionAmplificationElementDroit();
-			break;		 	
+			break;	 
 		default:
 			System.out.println("ERREUR : CREATION DE FORMES");
 			break;
