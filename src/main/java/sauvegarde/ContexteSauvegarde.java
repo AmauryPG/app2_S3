@@ -15,8 +15,18 @@ public class ContexteSauvegarde {
 		this.strategy = strategy;
 	}
 	
-	public void execute(Pane tableauTravail, ArrayList<Canvas> listFormes)
+	public void setStragtegy(StrategySauvegarde strategy)
+	{
+		this.strategy = strategy;
+	}
+	
+	public void executeSave(Pane tableauTravail)
 	{ 
-		strategy.execute(tableauTravail, listFormes);
+		strategy.executeSave(tableauTravail);
+	}
+
+	public void executeOpen(Pane tableauTravail, ArrayList<Canvas> listFormes)
+	{ 
+		strategy.executeOpen(tableauTravail, listFormes);
 	}
 }

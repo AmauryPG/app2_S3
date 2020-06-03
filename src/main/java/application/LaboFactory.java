@@ -16,7 +16,7 @@ public class LaboFactory extends Application {
          
         rootLayout = (BorderPane)loader.load();
 
-        primaryStage.setTitle("Prototype 3");
+        primaryStage.setTitle("Prototype 4");
         primaryStage.setScene(new Scene(rootLayout));
         primaryStage.show();
     } 

@@ -1,20 +1,20 @@
 package enums;
 
 public enum eshape {
-	POWER_SOURCE,
-	ACCUMULATION_ELEMENT_DROIT, 
-	COUPLING_ELEMENT,
-	SWITCHING_ELEMENT,
-	AMPLIFICATION_ELEMENT_GAUCHE,
-	AMPLIFICATION_ELEMENT_DROIT,
-	INVERSION_CONVERSION_ELEMENT, 
-	INVERSION_ACCUMULATION_ELEMENT, 
-	INVERSION_SWITCHING_ELEMENT,
-	INVERSION_AMPLIFICATION_ELEMENT_GAUCHE,
-	INVERSION_AMPLIFICATION_ELEMENT_DROIT,
-	CONVERSION_ELEMENT_CIRCLE, 
-	CONVERSION_ELEMENT_SQUARE,
-	COUPLING_ELEMENT_SQUARE, 
-	INVERSION_COUPLING_ELEMENT, 
-	COUPLING_ELEMENT_CIRCLE;
+	PowerSource,
+	AccumulationElement, 
+	ConversionElementSquare,
+	ConversionElementCircle,
+	CouplingElementSquare,
+	CouplingElementCircle,
+	SwitchingElement, 
+	AmplificationElementGauche,
+	AmplificationElementDroit,
+	InversionConversionElement,
+	InversionAccumulationElement, 
+	InversionCouplingElement,
+	InversionSwitchingElement, 
+	InversionAmplificationElementGauche, 
+	InversionAmplificationElementDroit
+	;
 }

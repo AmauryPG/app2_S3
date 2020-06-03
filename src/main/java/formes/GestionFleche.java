@@ -1,6 +1,5 @@
 package formes;
 
-import controller.MainController;
 import etatFleche.contextFleche;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -16,7 +15,7 @@ public class GestionFleche {
     private static Canvas tempCanvas;
     
 	 public static Canvas gestionFlechesSurComposantes(Canvas can, Pane tableauTravail, contextFleche context, 
-				Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine, MainController controller)
+				Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine)
 	    {
 	    	//on fait la gestion des fleches
 	    	can.setOnMouseReleased(new EventHandler<javafx.scene.input.MouseEvent>() { 
@@ -26,7 +25,7 @@ public class GestionFleche {
 	            	if(e.getClickCount() > 1)
 	            	{
 	            		//deux position des canvas
-	            		anchorX[nbrAnchor] = can.getTranslateY();
+	            		anchorX[nbrAnchor] = can.getTranslateY(); 
 	                    anchorY[nbrAnchor] = can.getTranslateX();  
 	                    
 	                    if(nbrAnchor < 1)
@@ -40,15 +39,12 @@ public class GestionFleche {
 	                 	   
 	                 	   //on cree la nouvelle ligne 
 	                 	   
-	                 	   if(controller.getState().Conneter()==true) {
-	                 		   if(tempCanvas != can) {
-	                 			   CreationFleche.creation(tableauTravail, context, arrow, triangleHead, triangleBack, curLine,
-	                 					   tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 
-	                 					   can.getTranslateX() + can.getWidth()/2, can.getTranslateY() + can.getHeight()/2, 
-	                 					   tempCanvas.getHeight()/2, tempCanvas.getWidth()/2,
-	                 					   can.getHeight()/2, can.getWidth()/2);     
-	                 		   }
-	                 	   }
+
+	                 	   CreationFleche.creation(tableauTravail, context, arrow, triangleHead, triangleBack, curLine,
+	                  			  tempCanvas.getTranslateX() + tempCanvas.getWidth()/2, tempCanvas.getTranslateY() + tempCanvas.getHeight()/2, 
+	                  			  can.getTranslateX() + can.getWidth()/2, can.getTranslateY() + can.getHeight()/2, 
+	                  			  tempCanvas.getHeight()/2, tempCanvas.getWidth()/2,
+	                  			  can.getHeight()/2, can.getWidth()/2);                         
 	                    }    
 	            	}                              
 	            } 

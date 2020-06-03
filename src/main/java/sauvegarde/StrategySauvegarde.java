@@ -8,5 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
 public interface StrategySauvegarde {
-	public void execute(Pane tableauTravail, ArrayList<Canvas> listFormes);
+	public void executeSave(Pane tableauTravail);
+	public void executeOpen(Pane tableauTravail, ArrayList<Canvas> listFormes);
 }

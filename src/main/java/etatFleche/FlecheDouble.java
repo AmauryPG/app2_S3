@@ -11,11 +11,7 @@ public class FlecheDouble implements stateFleche {
 		System.out.println("Fleche double");
 		fleche.setState(this);
 	}
-	
-	public String toString()
-	{
-		return "yes yes zone";
-	} 
+	 
 
 	public void setTypeFleche(Line curLine, Polygon triangleHead2, Polygon triangleHead, Group arrow, double xFin, double yFin)
 	{ 

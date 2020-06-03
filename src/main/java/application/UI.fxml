@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -25,7 +30,7 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -369,6 +374,8 @@
                   <items>
                     <MenuItem fx:id="boutonSauvegarder" mnemonicParsing="false" onAction="#sauvegarderClicked" text="Sauvegarder" />
                         <MenuItem fx:id="boutonOuvrir" mnemonicParsing="false" onAction="#ouvrirClicked" text="Ouvrir" />
+                        <MenuItem fx:id="boutonFormatFxml" mnemonicParsing="false" onAction="#onActionFormatFxml" text="Format .fxml" />
+                        <MenuItem fx:id="boutonFormatTxt" mnemonicParsing="false" onAction="#onActionFormatTxt" text="Format .txt" />
                   </items>
                 </Menu>
                 <Menu fx:id="menuEdit" mnemonicParsing="false" text="Edit">

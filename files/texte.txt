@@ -1,4 +1,2 @@
-Elipse;242.0;160.0;;;
-Elipse;77.0;129.0;;;
-FlecheSimple;104.0;129.0;27.0;39.0;
-FlecheSimple;131.0;148.5;242.0;179.5;
+AmplificationElementGauche;69.60000000000002;163.2;
+CouplingElementCircle;200.79999999999998;96.0;

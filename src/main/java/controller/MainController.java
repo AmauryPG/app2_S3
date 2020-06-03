@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 
 import enums.eshape;
-import formes.ShapeFactory;
+import formes.FormeFactory;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Rectangle;
 import sauvegarde.*; 
@@ -169,7 +169,7 @@ public class MainController {
     Vector<Node> removedChildren = new Vector<Node>();
     private contextFleche context = new contextFleche(); 
     
-    private ContexteSauvegarde contexte;
+    private ContexteSauvegarde contexte = new ContexteSauvegarde(new FormatTxt(arrow, triangleHead, triangleBack, curLine));
     
     @FXML
     private MenuItem undo;
@@ -197,10 +197,6 @@ public class MainController {
 
     } 
     
-    public State getState() {
-    	return state;
-    }
-    
     @FXML
     void boutonHandler(ActionEvent event) {
     	System.out.println(event.getSource().toString()); 
@@ -212,12 +208,12 @@ public class MainController {
     	System.out.println("mouseClickedAccumulation");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.ACCUMULATION_ELEMENT_DROIT); 
+		    Canvas can = FormeFactory.createForme(eshape.AccumulationElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
-		    
+		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
 
@@ -228,12 +224,11 @@ public class MainController {
     	System.out.println("mouseClickedAmplification1");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_DROIT); 
+		    Canvas can = FormeFactory.createForme(eshape.AmplificationElementDroit); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
-		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
 
@@ -244,12 +239,12 @@ public class MainController {
     	System.out.println("mouseClickedAmplification2");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_GAUCHE); 
+		    Canvas can = FormeFactory.createForme(eshape.AmplificationElementGauche); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
-		    
+		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
 
@@ -260,7 +255,7 @@ public class MainController {
     	System.out.println("mouseClickedConversionCircle"); 
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.CONVERSION_ELEMENT_CIRCLE); 
+		    Canvas can = FormeFactory.createForme(eshape.ConversionElementCircle); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -276,7 +271,7 @@ public class MainController {
     	System.out.println("mouseClickedConversionSquare");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.CONVERSION_ELEMENT_SQUARE); 
+		    Canvas can = FormeFactory.createForme(eshape.ConversionElementSquare); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -292,12 +287,12 @@ public class MainController {
     	System.out.println("mouseClickedCouplingCircles"); 
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.COUPLING_ELEMENT_CIRCLE); 
+		    Canvas can = FormeFactory.createForme(eshape.CouplingElementCircle); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
 
@@ -308,12 +303,12 @@ public class MainController {
     	System.out.println("mouseClickedCouplingSquares");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.COUPLING_ELEMENT_SQUARE); 
+		    Canvas can = FormeFactory.createForme(eshape.CouplingElementSquare); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
     	}
     }
 
@@ -380,7 +375,7 @@ public class MainController {
     	System.out.println("mouseClickedInvAccumulation");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_ACCUMULATION_ELEMENT); 
+		    Canvas can = FormeFactory.createForme(eshape.InversionAccumulationElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -396,7 +391,7 @@ public class MainController {
     	System.out.println("mouseClickedInvAmplification1");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_GAUCHE); 
+		    Canvas can = FormeFactory.createForme(eshape.InversionAmplificationElementGauche);
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -412,7 +407,7 @@ public class MainController {
     	System.out.println("mouseClickedInvAmplification2");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_DROIT); 
+		    Canvas can = FormeFactory.createForme(eshape.InversionAmplificationElementDroit); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -428,7 +423,7 @@ public class MainController {
     	System.out.println("mouseClickedInvConvertion");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_CONVERSION_ELEMENT); 
+		    Canvas can = FormeFactory.createForme(eshape.InversionConversionElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -444,7 +439,7 @@ public class MainController {
     	System.out.println("mouseClickedInvCoupling");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_COUPLING_ELEMENT); 
+		    Canvas can = FormeFactory.createForme(eshape.InversionCouplingElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -460,7 +455,7 @@ public class MainController {
     	System.out.println("mouseClickedInvSwitching");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_SWITCHING_ELEMENT); 
+    		Canvas can = FormeFactory.createForme(eshape.InversionSwitchingElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -476,7 +471,7 @@ public class MainController {
     	System.out.println("mouseClickedSource");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.POWER_SOURCE); 
+		    Canvas can = FormeFactory.createForme(eshape.PowerSource); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -502,7 +497,7 @@ public class MainController {
     	System.out.println("mouseClickedSwitching"); 
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.SWITCHING_ELEMENT); 
+		    Canvas can = FormeFactory.createForme(eshape.SwitchingElement); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
 		    	
@@ -520,7 +515,7 @@ public class MainController {
     
     @FXML
     void mouseClickedCercle(MouseEvent event) {
-    	if(state.DessinerForme() == true) { 
+    	if(state.DessinerForme() == true) {  
     	}
     } 
         
@@ -574,17 +569,24 @@ public class MainController {
     //section pour sauvegarder et ouvrir des fichiers    
     @FXML
     void sauvegarderClicked(ActionEvent event) {
-    	contexte = new ContexteSauvegarde(new OperationSauvegarder());
-    	contexte.execute(tableauTravail, listFormes);
-    	System.out.println("sauve");
+    	System.out.println("sauve");    	
+    	contexte.executeSave(tableauTravail);
     }
 
     @FXML
     void ouvrirClicked(ActionEvent event) {
-    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine, this));
-    	
-    	contexte.execute(tableauTravail, listFormes);
-    	System.out.println("ouvrir");
+    	System.out.println("ouvrir");    	
+    	contexte.executeOpen(tableauTravail, listFormes);
     }
-    
+
+    @FXML
+    void onActionFormatTxt(ActionEvent event) {  
+    	contexte.setStragtegy(new FormatTxt(arrow, triangleHead, triangleBack, curLine));
+    }
+
+    @FXML
+    void onActionFormatFxml(ActionEvent event) {  
+    	contexte.setStragtegy(new FormatFxml(arrow, triangleHead, triangleBack, curLine));
+
+    }
 }

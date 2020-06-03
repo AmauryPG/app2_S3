@@ -12,11 +12,7 @@ public class FlecheSimple implements stateFleche {
 		System.out.println("Fleche simple");
 		fleche.setState(this);
 	}
-	
-	public String toString()
-	{
-		return "yes yes zone";
-	} 
+	 
 
 	public void setTypeFleche(Line curLine, Polygon triangleBack, Polygon triangleHead, Group arrow, double xFin, double yFin)
 	{  

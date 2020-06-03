@@ -24,7 +24,7 @@ public class CreationFleche {
         context.getState().setTypeFleche(curLine, triangleBack, triangleHead, arrow, forme2X, forme2Y);
         
         //ajouter de la fleche dans le tableau de travail
-        tableauTravail.getChildren().add(arrow);   
+        tableauTravail.getChildren().add(arrow);    
 	}
 	
 	public static void creation(Pane tableauTravail, contextFleche context, 
