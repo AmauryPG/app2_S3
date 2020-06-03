@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Vector;
 
+import controller.MainController;
 import enums.eshape;
 import etatFleche.*; 
 import formes.CreationFleche;
@@ -38,13 +39,15 @@ public class OperationOuvrir implements StrategySauvegarde {
     private FlecheDouble flecheDouble = new FlecheDouble();
     private FlecheSimple flecheSimple = new FlecheSimple();
     private contextFleche context = new contextFleche();
+    private MainController controller;
     
-    public OperationOuvrir(Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine)
+    public OperationOuvrir(Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine,MainController controller)
     { 
     	this.arrow = arrow;
     	this.triangleHead = triangleHead;
     	this.triangleBack = triangleBack;
     	this.curLine = curLine;
+    	this.controller = controller;
     }
     
 	public void execute(Pane tableauTravail, ArrayList<Canvas> listFormes)
@@ -92,7 +95,7 @@ public class OperationOuvrir implements StrategySauvegarde {
 				    listFormes.add(can); 	
 				    
 				  //on fait la gestion des fleches
-				    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine); 
+				    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, controller); 
 				}
 			}
 			

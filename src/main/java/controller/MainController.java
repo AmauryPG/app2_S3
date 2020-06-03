@@ -197,6 +197,10 @@ public class MainController {
 
     } 
     
+    public State getState() {
+    	return state;
+    }
+    
     @FXML
     void boutonHandler(ActionEvent event) {
     	System.out.println(event.getSource().toString()); 
@@ -211,9 +215,9 @@ public class MainController {
 		    Canvas can = ShapeFactory.createShape(eshape.ACCUMULATION_ELEMENT_DROIT); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
-		    	
+		    
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
 
@@ -229,7 +233,7 @@ public class MainController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
 
@@ -243,9 +247,9 @@ public class MainController {
 		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_GAUCHE); 
 		    tableauTravail.getChildren().add(can);
 		    listFormes.add(can); 
-		    	
+		    
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
 
@@ -293,7 +297,7 @@ public class MainController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
 
@@ -309,7 +313,7 @@ public class MainController {
 		    listFormes.add(can); 
 		    	
 		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, this);
     	}
     }
 
@@ -577,7 +581,7 @@ public class MainController {
 
     @FXML
     void ouvrirClicked(ActionEvent event) {
-    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine));
+    	contexte = new ContexteSauvegarde(new OperationOuvrir(arrow, triangleHead, triangleBack, curLine, this));
     	
     	contexte.execute(tableauTravail, listFormes);
     	System.out.println("ouvrir");
