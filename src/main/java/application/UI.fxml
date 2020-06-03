@@ -28,7 +28,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.FactoryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -147,6 +147,6 @@
       </VBox>
    </top>
    <bottom>
-      <Label fx:id="labelMode" text="Mode de l,utilisateur" BorderPane.alignment="CENTER" />
+      <Label fx:id="labelMode" text="Mode de l'utilisateur" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

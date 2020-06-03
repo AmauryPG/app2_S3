@@ -14,22 +14,44 @@ public class ShapeFactory {
 	static private Canvas can;
 
 	public static Canvas createShape(eshape shape)  { 
-	 	can = new nRectangle();
+	 	can = new nPowerSource();
 		switch (shape) { 
-		case RECTANGLE:
-			can = new nRectangle(); 
+		case POWER_SOURCE:
+			can = new nPowerSource();
+		break; 
+		case ACCUMULATION_ELEMENT:
+			can = new nAccumulationElement();
 			break; 
-		case CARRE:
-			can = new nCarre();
+		case CONVERSION_ELEMENT:
+			can = new nConversionElement();
 			break; 
-		case ELIPSE:
-			can = new nElipse();
+		case COUPLING_ELEMENT:
+			can = new nCouplingElement();			
+		break; 
+		case SWITCHING_ELEMENT:
+			can = new nSwitchingElement();
 			break; 
-		case CERCLE:
-			can = new nCercle();
+		case AMPLIFICATION_ELEMENT:
+			can = new nAmplificationElement();
 			break; 
+		case INVERSION_CONVERSION_ELEMENT:
+			can = new nInversionConversionElement();
+			break;
+		case INVERSION_ACCUMULATION_ELEMENT:
+			can = new nInversionAccumulationElement();
+			break;
+		case INVERSION_COUPLING_ELEMENT:
+			can = new nInversionCouplingElement();
+			break;
+		case INVERSION_SWITCHING_ELEMENT:
+			can = new nInversionSwitchingElement();
+			break;
+		case INVERSION_AMPLIFICATION_ELEMENT:
+			break;		
+		case CONTROL_STRATEGY:
+			break;			
 		default:
-			System.out.println("Le code est tout croche pis y bug");
+			System.out.println("ERREUR : CREATION DE FORMES");
 			break;
 		}
 		can.setOnMousePressed(canvasOnMousePressed);

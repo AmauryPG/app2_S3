@@ -15,7 +15,6 @@ import etatFleche.*;
 import formes.CreationFleche;
 import formes.GestionFleche;
 import formes.ShapeFactory;
-import hellofx.FactoryController;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -39,15 +38,13 @@ public class OperationOuvrir implements StrategySauvegarde {
     private FlecheDouble flecheDouble = new FlecheDouble();
     private FlecheSimple flecheSimple = new FlecheSimple();
     private contextFleche context = new contextFleche();
-    private FactoryController controller;
     
-    public OperationOuvrir(Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine, FactoryController controller)
+    public OperationOuvrir(Group arrow, Polygon triangleHead, Polygon triangleBack, Line curLine)
     { 
     	this.arrow = arrow;
     	this.triangleHead = triangleHead;
     	this.triangleBack = triangleBack;
     	this.curLine = curLine;
-    	this.controller = controller;
     }
     
 	public void execute(Pane tableauTravail, ArrayList<Canvas> listFormes)
@@ -95,7 +92,7 @@ public class OperationOuvrir implements StrategySauvegarde {
 				    listFormes.add(can); 	
 				    
 				  //on fait la gestion des fleches
-				    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine, controller); 
+				    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine); 
 				}
 			}
 			
