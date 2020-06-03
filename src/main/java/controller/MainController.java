@@ -205,6 +205,39 @@ public class MainController {
     
     @FXML
     void mouseClickedAccumulation(MouseEvent event) {
+    	System.out.println("mouseClickedAccumulation");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.ACCUMULATION_ELEMENT_DROIT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedAmplification1(MouseEvent event) {
+    	System.out.println("mouseClickedAmplification1");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_DROIT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedAmplification2(MouseEvent event) {
+    	System.out.println("mouseClickedAmplification2");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
 		    Canvas can = ShapeFactory.createShape(eshape.AMPLIFICATION_ELEMENT_GAUCHE); 
@@ -219,82 +252,144 @@ public class MainController {
  
 
     @FXML
-    void mouseClickedAmplification1(MouseEvent event) {
-    	if(state.DessinerForme() == true) {
-		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_GAUCHE); 
-		    tableauTravail.getChildren().add(can);
-		    listFormes.add(can); 
-		    	
-		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
-    	}
-    }
-
- 
-
-    @FXML
-    void mouseClickedAmplification2(MouseEvent event) {
-    	if(state.DessinerForme() == true) {
-		    //on ajoute un canvas dans le pane
-		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_DROIT); 
-		    tableauTravail.getChildren().add(can);
-		    listFormes.add(can); 
-		    	
-		    //la fonction controle les connection entre les elements 
-		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
-    	}
-    }
-
- 
-
-    @FXML
     void mouseClickedConversionCircle(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedConversionCircle"); 
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.CONVERSION_ELEMENT_CIRCLE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedConversionSquare(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedConversionSquare");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.CONVERSION_ELEMENT_SQUARE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedCouplingCircles(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedCouplingCircles"); 
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.COUPLING_ELEMENT_CIRCLE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedCouplingSquares(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedCouplingSquares");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.COUPLING_ELEMENT_SQUARE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedEstimAccumulation(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedEstimAccumulation");
     }
 
  
 
     @FXML
     void mouseClickedEstimAmplification1(MouseEvent event) {
+    	System.out.println("mouseClickedEstimAmplification1");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimAmplification2(MouseEvent event) {
+    	System.out.println("mouseClickedEstimAmplification2");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCircle(MouseEvent event) {
+    	System.out.println("mouseClickedEstimCircle");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCouplingCircles(ContextMenuEvent event) {
+    	System.out.println("mouseClickedEstimCouplingCircles");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimCouplingSquare(MouseEvent event) {
+    	System.out.println("mouseClickedEstimCouplingSquare");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimSource(MouseEvent event) {
+    	System.out.println("mouseClickedEstimSource");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedEstimSwitching(MouseEvent event) {
+    	System.out.println("mouseClickedEstimSwitching");
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvAccumulation(MouseEvent event) {
+    	System.out.println("mouseClickedInvAccumulation");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_ACCUMULATION_ELEMENT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
+    }
+
+ 
+
+    @FXML
+    void mouseClickedInvAmplification1(MouseEvent event) {
+    	System.out.println("mouseClickedInvAmplification1");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
 		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_GAUCHE); 
@@ -309,7 +404,8 @@ public class MainController {
  
 
     @FXML
-    void mouseClickedEstimAmplification2(MouseEvent event) {
+    void mouseClickedInvAmplification2(MouseEvent event) {
+    	System.out.println("mouseClickedInvAmplification2");
     	if(state.DessinerForme() == true) {
 		    //on ajoute un canvas dans le pane
 		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_AMPLIFICATION_ELEMENT_DROIT); 
@@ -324,115 +420,72 @@ public class MainController {
  
 
     @FXML
-    void mouseClickedEstimCircle(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedEstimCouplingCircles(ContextMenuEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedEstimCouplingSquare(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedEstimSource(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedEstimSwitching(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedInvAccumulation(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedInvAmplification1(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
-    void mouseClickedInvAmplification2(MouseEvent event) {
-
- 
-
-    }
-
- 
-
-    @FXML
     void mouseClickedInvConvertion(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedInvConvertion");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_CONVERSION_ELEMENT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedInvCoupling(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedInvCoupling");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_COUPLING_ELEMENT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedInvSwitching(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedInvSwitching");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.INVERSION_SWITCHING_ELEMENT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedSource(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedSource");
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.POWER_SOURCE); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
 
  
 
     @FXML
     void mouseClickedStrategy(MouseEvent event) {
+    	System.out.println("mouseClickedStrategy");
 
  
 
@@ -442,9 +495,16 @@ public class MainController {
 
     @FXML
     void mouseClickedSwitching(MouseEvent event) {
-
- 
-
+    	System.out.println("mouseClickedSwitching"); 
+    	if(state.DessinerForme() == true) {
+		    //on ajoute un canvas dans le pane
+		    Canvas can = ShapeFactory.createShape(eshape.SWITCHING_ELEMENT); 
+		    tableauTravail.getChildren().add(can);
+		    listFormes.add(can); 
+		    	
+		    //la fonction controle les connection entre les elements 
+		    GestionFleche.gestionFlechesSurComposantes(can, tableauTravail, context, arrow, triangleHead, triangleBack, curLine);
+    	}
     }
     
     @FXML
